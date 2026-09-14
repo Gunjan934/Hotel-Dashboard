@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Booking Bill</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+
+<body>
+
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <a href="{{ url_for('routes.customer_dashboard') }}"
+           class="logo">
+
+            Hotel Reservation System
+
+        </a>
+
+
+        <div class="nav-links">
+
+            <a href="{{ url_for('routes.home') }}">
+                Home
+            </a>
+
+            <a href="{{ url_for('routes.customer_dashboard') }}">
+                Dashboard
+            </a>
+
+            <a href="{{ url_for('routes.bookings') }}">
+                My Bookings
+            </a>
+
+            <a href="{{ url_for('routes.logout') }}">
+                Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- BILL -->
+
+    <div class="page-container">
+
+        <div class="dashboard-header">
+
+            <h1>
+                Booking Bill
+            </h1>
+
+            <p>
+                Bill details for your hotel reservation.
+            </p>
+
+        </div>
+
+
+
+        <!-- BOOKING DETAILS -->
+
+        <div class="booking-card">
+
+            <h3>
+                Booking Details
+            </h3>
+
+
+            <p>
+                <strong>Booking ID:</strong>
+                {{ booking.id }}
+            </p>
+
+
+            <p>
+                <strong>Hotel:</strong>
+                {{ booking.room.hotel.name }}
+            </p>
+
+
+            <p>
+                <strong>City:</strong>
+                {{ booking.room.hotel.city }}
+            </p>
+
+
+            <p>
+                <strong>Room:</strong>
+                {{ booking.room.room_number }}
+            </p>
+
+
+            <p>
+                <strong>Room Type:</strong>
+                {{ booking.room.room_type.name }}
+            </p>
+
+
+            <p>
+                <strong>Check-in:</strong>
+                {{ booking.check_in }}
+            </p>
+
+
+            <p>
+                <strong>Check-out:</strong>
+                {{ booking.check_out }}
+            </p>
+
+
+            <p>
+                <strong>Guests:</strong>
+                {{ booking.guests }}
+            </p>
+
+
+            <p>
+                <strong>Booking Status:</strong>
+                {{ booking.status }}
+            </p>
+
+        </div>
+
+
+
+        <br>
+
+
+
+        <!-- BILL DETAILS -->
+
+        <div class="booking-card">
+
+            <h3>
+                Bill Details
+            </h3>
+
+
+            <p>
+                <strong>Room Price Per Night:</strong>
+                ₹{{ price }}
+            </p>
+
+
+            <p>
+                <strong>Number of Nights:</strong>
+                {{ nights }}
+            </p>
+
+
+            <p>
+                <strong>Room Amount:</strong>
+                ₹{{ bill.subtotal }}
+            </p>
+
+
+            <p>
+                <strong>Tax (10%):</strong>
+                ₹{{ bill.tax }}
+            </p>
+
+
+            <p>
+                <strong>Total Amount:</strong>
+                ₹{{ bill.total_amount }}
+            </p>
+
+
+            <p>
+                <strong>Payment Status:</strong>
+                {{ bill.payment_status }}
+            </p>
+
+
+            <br>
+
+
+            {% if bill.payment_status == "unpaid" %}
+
+                <a href="{{ url_for(
+                    'routes.pay',
+                    booking_id=booking.id
+                ) }}"
+                   class="dashboard-btn">
+
+                    Pay Now
+
+                </a>
+
+            {% else %}
+
+                <p>
+                    <strong>Payment Completed</strong>
+                </p>
+
+            {% endif %}
+
+        </div>
+
+
+
+        <br>
+
+
+        <a href="{{ url_for('routes.bookings') }}"
+           class="secondary-btn">
+
+            Back to My Bookings
+
+        </a>
+
+
+    </div>
+
+
+</body>
+
+</html>

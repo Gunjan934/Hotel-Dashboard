@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Customer Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <a href="{{ url_for('routes.customer_dashboard') }}"
+           class="logo">
+
+            Hotel Reservation System
+
+        </a>
+
+
+        <div class="nav-links">
+
+            <a href="{{ url_for('routes.home') }}">
+                Home
+            </a>
+
+            <a href="{{ url_for('routes.bookings') }}">
+                My Bookings
+            </a>
+
+            <a href="{{ url_for('routes.logout') }}">
+                Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- DASHBOARD -->
+
+    <main class="page-container">
+
+        <div class="dashboard-header">
+
+            <h1>
+                Customer Dashboard
+            </h1>
+
+            <p>
+                Manage your hotel reservations easily.
+            </p>
+
+        </div>
+
+
+        <div class="dashboard-grid">
+
+
+            <!-- BROWSE HOTELS -->
+
+            <div class="dashboard-card">
+
+                <h3>
+                    Find a Room
+                </h3>
+
+                <p>
+                    Browse hotels and check room
+                    availability for your stay.
+                </p>
+
+                <a href="{{ url_for('routes.home') }}"
+                   class="dashboard-btn">
+
+                    Browse Hotels
+
+                </a>
+
+            </div>
+
+
+            <!-- MY BOOKINGS -->
+
+            <div class="dashboard-card">
+
+                <h3>
+                    My Bookings
+                </h3>
+
+                <p>
+                    View your current and previous
+                    hotel reservations.
+                </p>
+
+                <a href="{{ url_for('routes.bookings') }}"
+                   class="dashboard-btn">
+
+                    View My Bookings
+
+                </a>
+
+            </div>
+
+
+            <!-- ACCOUNT -->
+
+            <div class="dashboard-card">
+
+                <h3>
+                    My Account
+                </h3>
+
+                <p>
+                    Your account is securely logged in
+                    to the hotel reservation system.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </main>
+
+</body>
+
+</html>

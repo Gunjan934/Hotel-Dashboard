@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Customers</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+    <nav class="navbar">
+
+        <a href="{{ url_for('routes.staff_dashboard') }}"
+           class="logo">
+
+            Hotel Reservation System
+
+        </a>
+
+        <div class="nav-links">
+
+            <a href="{{ url_for('routes.staff_dashboard') }}">
+                Dashboard
+            </a>
+
+            <a href="{{ url_for('routes.staff_hotel') }}">
+                Hotel Details
+            </a>
+
+            <a href="{{ url_for('routes.staff_customers') }}">
+                Customers
+            </a>
+
+            <a href="{{ url_for('routes.staff_bookings') }}">
+                Bookings
+            </a>
+
+            <a href="{{ url_for('routes.staff_rooms') }}">
+                Rooms
+            </a>
+
+            <a href="{{ url_for('routes.logout') }}">
+                Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <div class="page-container">
+
+        <div class="dashboard-header">
+
+            <h1>
+                Hotel Customers
+            </h1>
+
+            <p>
+                Customers who have bookings in your hotel.
+            </p>
+
+        </div>
+
+
+        {% if customers %}
+
+        <div class="booking-list">
+
+            {% for customer in customers %}
+
+            <div class="booking-card">
+
+                <h3>
+                    {{ customer.name }}
+                </h3>
+
+                <p>
+                    <strong>Email:</strong>
+                    {{ customer.email }}
+                </p>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        {% else %}
+
+        <div class="no-data">
+
+            <h3>
+                No Customers Found
+            </h3>
+
+            <p>
+                No customers have booked a room in this hotel yet.
+            </p>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</body>
+
+</html>

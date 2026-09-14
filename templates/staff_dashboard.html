@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Staff Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+
+<body>
+
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <a href="{{ url_for('routes.staff_dashboard') }}"
+           class="logo">
+
+            Hotel Reservation System
+
+        </a>
+
+
+        <div class="nav-links">
+
+            <a href="{{ url_for('routes.staff_dashboard') }}">
+                Dashboard
+            </a>
+
+            <a href="{{ url_for('routes.staff_hotel') }}">
+                Hotel Details
+            </a>
+
+            <a href="{{ url_for('routes.staff_customers') }}">
+                Customers
+            </a>
+
+            <a href="{{ url_for('routes.staff_bookings') }}">
+                Bookings
+            </a>
+
+            <a href="{{ url_for('routes.staff_rooms') }}">
+                Rooms
+            </a>
+
+            <a href="{{ url_for('routes.logout') }}">
+                Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- DASHBOARD -->
+
+    <div class="page-container">
+
+
+        <div class="dashboard-header">
+
+            <h1>
+                {{ hotel.name }}
+            </h1>
+
+            <p>
+                Staff Dashboard
+            </p>
+
+        </div>
+
+
+        <!-- HOTEL INFORMATION -->
+
+        <div class="dashboard-card">
+
+            <h3>
+                Hotel Information
+            </h3>
+
+
+            <p>
+                <strong>Hotel:</strong>
+                {{ hotel.name }}
+            </p>
+
+
+            <p>
+                <strong>City:</strong>
+                {{ hotel.city }}
+            </p>
+
+
+            <p>
+                <strong>Address:</strong>
+                {{ hotel.address }}
+            </p>
+
+
+            <p>
+                <strong>Phone:</strong>
+                {{ hotel.phone }}
+            </p>
+
+        </div>
+
+
+        <br>
+
+
+        <!-- STAFF OPTIONS -->
+
+        <div class="dashboard-grid">
+
+
+            <div class="dashboard-card">
+
+                <h3>
+                    Hotel Details
+                </h3>
+
+                <p>
+                    View information about your hotel.
+                </p>
+
+                <a href="{{ url_for('routes.staff_hotel') }}"
+                   class="dashboard-btn">
+
+                    View Hotel
+
+                </a>
+
+            </div>
+
+
+
+            <div class="dashboard-card">
+
+                <h3>
+                    Customers
+                </h3>
+
+                <p>
+                    View customers who booked rooms in your hotel.
+                </p>
+
+                <a href="{{ url_for('routes.staff_customers') }}"
+                   class="dashboard-btn">
+
+                    View Customers
+
+                </a>
+
+            </div>
+
+
+
+            <div class="dashboard-card">
+
+                <h3>
+                    Bookings
+                </h3>
+
+                <p>
+                    View and manage bookings for your hotel.
+                </p>
+
+                <a href="{{ url_for('routes.staff_bookings') }}"
+                   class="dashboard-btn">
+
+                    View Bookings
+
+                </a>
+
+            </div>
+
+
+
+            <div class="dashboard-card">
+
+                <h3>
+                    Rooms
+                </h3>
+
+                <p>
+                    Manage rooms and room status.
+                </p>
+
+                <a href="{{ url_for('routes.staff_rooms') }}"
+                   class="dashboard-btn">
+
+                    Manage Rooms
+
+                </a>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</body>
+
+</html>

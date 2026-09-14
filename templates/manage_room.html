@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Manage Room</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+<body>
+
+    <nav class="navbar">
+
+        <a href="{{ url_for('routes.staff_dashboard') }}"
+           class="logo">
+
+            Grand Palace Hotel
+
+        </a>
+
+        <div class="nav-links">
+
+            <a href="{{ url_for('routes.staff_dashboard') }}">
+                Dashboard
+            </a>
+
+            <a href="{{ url_for('routes.staff_bookings') }}">
+                Bookings
+            </a>
+
+            <a href="{{ url_for('routes.staff_rooms') }}">
+                Rooms
+            </a>
+
+            <a href="{{ url_for('routes.logout') }}">
+                Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <div class="container">
+
+        <h1>Manage Room</h1>
+
+        <div class="room-card">
+
+            <h3>
+                Room {{ room.room_number }}
+            </h3>
+
+            <p>
+                <strong>Room Type:</strong>
+                {{ room.room_type.name }}
+            </p>
+
+
+            <p>
+                <strong>Capacity:</strong>
+                {{ room.room_type.capacity }}
+                guests
+            </p>
+
+
+            <p>
+                <strong>Price:</strong>
+                ₹{{ room.room_type.price_per_night }}
+                per night
+            </p>
+
+
+            <p>
+                <strong>Current Status:</strong>
+                {{ room.status }}
+            </p>
+
+        </div>
+
+
+        <br>
+
+
+        <form method="POST">
+
+            <div class="form-group">
+
+                <label for="status">
+                    Change Room Status
+                </label>
+
+
+                <select name="status"
+                        id="status"
+                        required>
+
+                    <option value="available"
+                        {% if room.status == "available" %}
+                        selected
+                        {% endif %}>
+
+                        Available
+
+                    </option>
+
+
+                    <option value="maintenance"
+                        {% if room.status == "maintenance" %}
+                        selected
+                        {% endif %}>
+
+                        Maintenance
+
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <button type="submit"
+                    class="primary-btn">
+
+                Update Room
+
+            </button>
+
+        </form>
+        <br>
+
+        <a href="{{ url_for('routes.staff_rooms') }}"
+           class="secondary-btn">
+
+            Back to Rooms
+
+        </a>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Manage Rooms</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+    <nav class="navbar">
+
+        <a href="{{ url_for('routes.staff_dashboard') }}"
+           class="logo">
+
+            Grand Palace Hotel
+
+        </a>
+
+        <div class="nav-links">
+
+            <a href="{{ url_for('routes.staff_dashboard') }}">
+                Dashboard
+            </a>
+
+            <a href="{{ url_for('routes.staff_bookings') }}">
+                Bookings
+            </a>
+
+            <a href="{{ url_for('routes.logout') }}">
+                Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+    <div class="container">
+
+        <h1>Manage Rooms</h1>
+
+        <p>View and manage hotel room status.</p>
+
+        <br>
+
+
+        {% if rooms %}
+
+        <div class="room-grid">
+
+
+            {% for room in rooms %}
+
+            <div class="room-card">
+
+                <h3>
+                    Room {{ room.room_number }}
+                </h3>
+
+
+                <p>
+                    <strong>Room Type:</strong>
+                    {{ room.room_type.name }}
+                </p>
+
+
+                <p>
+                    <strong>Capacity:</strong>
+                    {{ room.room_type.capacity }}
+                    guests
+                </p>
+
+
+                <p>
+                    <strong>Price:</strong>
+                    ₹{{ room.room_type.price_per_night }}
+                    per night
+                </p>
+
+
+                <p>
+                    <strong>Status:</strong>
+                    {{ room.status }}
+                </p>
+
+
+                <a href="{{ url_for(
+                    'routes.manage_room',
+                    room_id=room.id
+                ) }}"
+                   class="dashboard-btn">
+
+                    Manage Room
+
+                </a>
+
+            </div>
+
+            {% endfor %}
+
+
+        </div>
+
+
+        {% else %}
+
+        <div class="no-data">
+
+            <h3>No Rooms Found</h3>
+
+        </div>
+
+        {% endif %}
+
+
+    </div>
+
+
+</body>
+
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Book Room</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+
+<body>
+
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <a href="{{ url_for('routes.home') }}"
+           class="logo">
+
+            Hotel Reservation System
+
+        </a>
+
+
+        <div class="nav-links">
+
+            <a href="{{ url_for('routes.home') }}">
+                Home
+            </a>
+
+            <a href="{{ url_for('routes.customer_dashboard') }}">
+                Dashboard
+            </a>
+
+            <a href="{{ url_for('routes.bookings') }}">
+                My Bookings
+            </a>
+
+            <a href="{{ url_for('routes.logout') }}">
+                Logout
+            </a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- BOOKING PAGE -->
+
+    <div class="page-container">
+
+        <h1>Book Room</h1>
+
+
+        <!-- ROOM DETAILS -->
+
+        <div class="room-card">
+
+            <h3>
+                Room {{ room.room_number }}
+            </h3>
+
+
+            <p>
+                <strong>Hotel:</strong>
+                {{ room.hotel.name }}
+            </p>
+
+
+            <p>
+                <strong>City:</strong>
+                {{ room.hotel.city }}
+            </p>
+
+
+            <p>
+                <strong>Room Type:</strong>
+                {{ room.room_type.name }}
+            </p>
+
+
+            <p>
+                <strong>Capacity:</strong>
+                {{ room.room_type.capacity }}
+                guests
+            </p>
+
+
+            <p class="room-price">
+                ₹{{ room.price_per_night }}
+                per night
+            </p>
+
+
+            <p>
+                <strong>Room Status:</strong>
+                {{ room.status }}
+            </p>
+
+        </div>
+
+
+        <br>
+
+
+        <!-- BOOKING FORM -->
+
+        <div class="booking-card">
+
+            <h3>Enter Booking Details</h3>
+
+            <br>
+
+
+            <form method="POST"
+                  action="{{ url_for(
+                      'routes.booking',
+                      room_id=room.id
+                  ) }}">
+
+
+                <div class="form-group">
+
+                    <label for="check_in">
+                        Check-in Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="check_in"
+                        name="check_in"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="check_out">
+                        Check-out Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="check_out"
+                        name="check_out"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="guests">
+                        Number of Guests
+                    </label>
+
+                    <input
+                        type="number"
+                        id="guests"
+                        name="guests"
+                        min="1"
+                        max="{{ room.room_type.capacity }}"
+                        required
+                    >
+
+                </div>
+
+
+                <button type="submit"
+                        class="primary-btn">
+
+                    Confirm Booking
+
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <br>
+
+
+        <a href="{{ url_for(
+            'routes.hotel_details',
+            hotel_id=room.hotel_id
+        ) }}"
+           class="secondary-btn">
+
+            Back to Hotel
+
+        </a>
+
+
+    </div>
+
+
+</body>
+
+</html>

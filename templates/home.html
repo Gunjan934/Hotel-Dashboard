@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Hotel Reservation System</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+    <nav class="navbar">
+
+        <div class="logo">
+            Hotel Reservation System
+        </div>
+
+
+        <div class="nav-links">
+
+            <a href="{{ url_for('routes.login') }}">
+                Login
+            </a>
+
+            <a href="{{ url_for('routes.register') }}">
+                Register
+            </a>
+
+            <a href="{{ url_for('routes.staff_login') }}">
+                Staff Login
+            </a>
+
+        </div>
+
+    </nav>
+
+
+
+    <div class="page-container">
+
+        <h1>Available Hotels</h1>
+
+        <p>
+            Select a hotel to view its rooms.
+        </p>
+
+        <br>
+
+
+        <div class="room-grid">
+
+
+            {% for hotel in hotels %}
+
+
+            <div class="room-card">
+
+
+                <h3>
+                    {{ hotel.name }}
+                </h3>
+
+
+
+                <p>
+                    <strong>City:</strong>
+                    {{ hotel.city }}
+                </p>
+
+
+                <p>
+                    <strong>Address:</strong>
+                    {{ hotel.address }}
+                </p>
+
+
+                <p>
+                    <strong>Phone:</strong>
+                    {{ hotel.phone }}
+                </p>
+
+
+                <a href="{{ url_for(
+                    'routes.hotel_details',
+                    hotel_id=hotel.id
+                ) }}"
+                   class="dashboard-btn">
+
+                    View Hotel
+
+                </a>
+
+
+            </div>
+
+
+            {% endfor %}
+
+
+        </div>
+
+
+    </div>
+
+
+</body>
+
+</html>

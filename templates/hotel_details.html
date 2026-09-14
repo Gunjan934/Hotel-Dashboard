@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ hotel.name }}</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="logo">Hotel Reservation System</div>
+
+    <div>
+        <a href="{{ url_for('routes.home') }}">Home</a>
+
+        {% if session.get("role") == "customer" %}
+            <a href="{{ url_for('routes.bookings') }}">My Bookings</a>
+            <a href="{{ url_for('routes.logout') }}">Logout</a>
+
+        {% elif session.get("role") == "staff" %}
+            <a href="{{ url_for('routes.staff_dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('routes.logout') }}">Logout</a>
+
+        {% else %}
+            <a href="{{ url_for('routes.login') }}">Login</a>
+            <a href="{{ url_for('routes.register') }}">Register</a>
+            <a href="{{ url_for('routes.staff_login') }}">Staff Login</a>
+        {% endif %}
+    </div>
+</div>
+
+
+<div class="page-container">
+
+    <div class="dashboard-header">
+        <h1>{{ hotel.name }}</h1>
+        <p>{{ hotel.city }}</p>
+        <p>{{ hotel.address }}</p>
+        <p>{{ hotel.phone }}</p>
+    </div>
+
+
+    <h2>Rooms</h2>
+
+    {% if rooms %}
+
+    <div class="room-grid">
+
+        {% for room in rooms %}
+
+        <div class="room-card">
+
+            <h3>Room {{ room.room_number }}</h3>
+
+            <p>
+                <strong>Room Type:</strong>
+                {{ room.room_type.name }}
+            </p>
+
+            <p>
+                <strong>Capacity:</strong>
+                {{ room.room_type.capacity }} guests
+            </p>
+
+            <p class="room-price">
+                ₹{{ room.price_per_night }} / night
+            </p>
+
+            <p>
+                <strong>Status:</strong>
+                {{ room.status }}
+            </p>
+
+            {% if room.status == "available" %}
+
+                {% if session.get("role") == "customer" %}
+
+                    <a href="{{ url_for('routes.rooms', hotel_id=hotel.id) }}"
+                       class="primary-btn">
+                        Check Availability
+                    </a>
+
+                {% elif not session.get("user_id") %}
+
+                    <a href="{{ url_for('routes.login') }}"
+                       class="primary-btn">
+                        Login to Book
+                    </a>
+
+                {% endif %}
+
+            {% else %}
+
+                <p>Room Not Available</p>
+
+            {% endif %}
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% else %}
+
+        <div class="no-data">
+            <p>No rooms available.</p>
+        </div>
+
+    {% endif %}
+
+</div>
+
+</body>
+</html>
