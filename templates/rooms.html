@@ -8,7 +8,9 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>{{ hotel.name }} - Rooms</title>
+    <title>
+        {{ hotel.name }} - Rooms
+    </title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/style.css') }}">
@@ -19,131 +21,141 @@
 <body>
 
 
-    <!-- NAVBAR -->
+<!-- NAVBAR -->
 
-    <nav class="navbar">
+<nav class="navbar">
 
-        <a href="{{ url_for('routes.home') }}"
-           class="logo">
+    <a href="{{ url_for('routes.home') }}"
+       class="logo">
 
-            Hotel Reservation System
+        HotelHub
 
+    </a>
+
+
+    <div class="nav-links">
+
+        <a href="{{ url_for('routes.home') }}">
+            Home
         </a>
 
+        <a href="{{ url_for('routes.customer_dashboard') }}">
+            Dashboard
+        </a>
 
-        <div class="nav-links">
+        <a href="{{ url_for('routes.bookings') }}">
+            My Bookings
+        </a>
 
-            <a href="{{ url_for('routes.home') }}">
-                Home
-            </a>
+        <a href="{{ url_for('routes.logout') }}">
+            Logout
+        </a>
 
-            <a href="{{ url_for('routes.customer_dashboard') }}">
-                Dashboard
-            </a>
+    </div>
 
-            <a href="{{ url_for('routes.bookings') }}">
-                Bookings
-            </a>
-
-            <a href="{{ url_for('routes.logout') }}">
-                Logout
-            </a>
-
-        </div>
-
-    </nav>
+</nav>
 
 
 
-    <div class="page-container">
+<div class="page-container">
 
 
-        <!-- HOTEL NAME -->
+    <!-- HOTEL HEADING -->
 
-        <div class="dashboard-header">
+    <div class="dashboard-header">
 
-            <h1>
-                {{ hotel.name }}
-            </h1>
+        <h1>
+            {{ hotel.name }}
+        </h1>
 
-            <p>
-                Search available rooms for your dates.
-            </p>
+        <p>
+            📍 {{ hotel.city }}
+        </p>
 
-        </div>
+        <p>
+            Search available rooms for your dates.
+        </p>
 
-
-
-        <!-- SEARCH -->
-
-        <div class="search-section">
-
-            <h2>
-                Check Room Availability
-            </h2>
-
-            <br>
-
-
-            <form method="POST"
-                  class="search-form">
-
-
-                <div class="form-group">
-
-                    <label for="check_in">
-                        Check-in Date
-                    </label>
-
-                    <input
-                        type="date"
-                        id="check_in"
-                        name="check_in"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label for="check_out">
-                        Check-out Date
-                    </label>
-
-                    <input
-                        type="date"
-                        id="check_out"
-                        name="check_out"
-                        required
-                    >
-
-                </div>
-
-
-                <button type="submit"
-                        class="primary-btn">
-
-                    Search Rooms
-
-                </button>
-
-
-            </form>
-
-        </div>
+    </div>
 
 
 
-        <!-- AVAILABLE ROOMS -->
+    <!-- AVAILABILITY SEARCH -->
 
-        {% if rooms %}
+    <div class="search-section">
 
         <h2>
-            Available Rooms
+            Check Room Availability
         </h2>
 
         <br>
+
+
+        <form method="POST"
+              class="search-form">
+
+
+            <div class="form-group">
+
+                <label for="check_in">
+                    Check-in Date
+                </label>
+
+                <input
+                    type="date"
+                    id="check_in"
+                    name="check_in"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="check_out">
+                    Check-out Date
+                </label>
+
+                <input
+                    type="date"
+                    id="check_out"
+                    name="check_out"
+                    required
+                >
+
+            </div>
+
+
+            <button type="submit"
+                    class="primary-btn">
+
+                Search Rooms
+
+            </button>
+
+
+        </form>
+
+    </div>
+
+
+
+    <!-- AVAILABLE ROOMS -->
+
+    {% if rooms %}
+
+        <div class="section-heading">
+
+            <p class="section-label">
+                AVAILABLE FOR YOUR DATES
+            </p>
+
+            <h2>
+                Available Rooms
+            </h2>
+
+        </div>
 
 
         <div class="room-grid">
@@ -155,48 +167,71 @@
             <div class="room-card">
 
 
-                <h3>
-                    Room {{ room.room_number }}
-                </h3>
+                <!-- ROOM IMAGE -->
+
+                <img
+                    src="{{ url_for(
+                        'static',
+                        filename='images/rooms/room' ~ room.id ~ '.jpg'
+                    ) }}"
+                    alt="Room {{ room.room_number }}"
+                    class="room-image"
+                >
 
 
-                <p>
-                    <strong>Room Type:</strong>
-                    {{ room.room_type.name }}
-                </p>
+                <div class="room-content">
+
+                    <h3>
+                        Room {{ room.room_number }}
+                    </h3>
 
 
-                <p>
-                    <strong>Capacity:</strong>
-                    {{ room.room_type.capacity }}
-                    guests
-                </p>
+                    <p>
+                        <strong>
+                            {{ room.room_type.name }}
+                        </strong>
+                    </p>
 
 
-                <p class="room-price">
-                ₹{{ room.price_per_night }}
-                per night
-                </p>
+                    <p>
+                        👤 {{ room.room_type.capacity }}
+                        guests
+                    </p>
 
 
-                <p>
-                    <strong>Status:</strong>
-                    {{ room.status }}
-                </p>
+                    <p class="room-price">
+
+                        ₹{{ room.price_per_night }}
+
+                        <span>
+                            / night
+                        </span>
+
+                    </p>
 
 
-                <br>
+                    <span class="available-badge">
+                        Available
+                    </span>
 
 
-                <a href="{{ url_for(
-                    'routes.booking',
-                    room_id=room.id
-                ) }}"
-                   class="dashboard-btn">
+                    <br>
+                    <br>
 
-                    Book This Room
 
-                </a>
+                    <a
+                        href="{{ url_for(
+                            'routes.booking',
+                            room_id=room.id
+                        ) }}"
+                        class="dashboard-btn"
+                    >
+
+                        Book This Room
+
+                    </a>
+
+                </div>
 
 
             </div>
@@ -208,7 +243,8 @@
         </div>
 
 
-        {% else %}
+    {% else %}
+
 
         <div class="no-data">
 
@@ -223,24 +259,27 @@
 
         </div>
 
-        {% endif %}
+
+    {% endif %}
 
 
-        <br>
+    <br>
 
 
-        <a href="{{ url_for(
+    <a
+        href="{{ url_for(
             'routes.hotel_details',
             hotel_id=hotel.id
         ) }}"
-           class="secondary-btn">
+        class="secondary-btn"
+    >
 
-            Back to Hotel
+        Back to Hotel
 
-        </a>
+    </a>
 
 
-    </div>
+</div>
 
 
 </body>

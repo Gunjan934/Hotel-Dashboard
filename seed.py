@@ -171,7 +171,6 @@ def seed_data():
         address="MG Road, Bangalore",
         phone="9876543212",
         staff_key="RC@789"
-        
     )
 
     db.session.add(hotel3)
@@ -348,12 +347,74 @@ def seed_data():
 
 
     # =========================
+    # HOTEL 6
+    # =========================
+
+    hotel6 = Hotel(
+        hotel_code="HTL006",
+        name="City Inn Hotel",
+        city="Chandigarh",
+        address="Sector 17, Chandigarh",
+        phone="9876543215",
+        staff_key="CI@987"
+    )
+
+    db.session.add(hotel6)
+    db.session.flush()
+
+    rooms6 = [
+
+        Room(
+            hotel_id=hotel6.id,
+            room_type_id=standard.id,
+            room_number="601",
+            price_per_night=2200,
+            status="available"
+        ),
+
+        Room(
+            hotel_id=hotel6.id,
+            room_type_id=standard.id,
+            room_number="602",
+            price_per_night=2400,
+            status="available"
+        ),
+
+        Room(
+            hotel_id=hotel6.id,
+            room_type_id=deluxe.id,
+            room_number="701",
+            price_per_night=3200,
+            status="available"
+        ),
+
+        Room(
+            hotel_id=hotel6.id,
+            room_type_id=deluxe.id,
+            room_number="702",
+            price_per_night=3500,
+            status="available"
+        ),
+
+        Room(
+            hotel_id=hotel6.id,
+            room_type_id=suite.id,
+            room_number="801",
+            price_per_night=5500,
+            status="available"
+        )
+    ]
+
+    db.session.add_all(rooms6)
+
+
+    # =========================
     # SAVE
     # =========================
 
     db.session.commit()
 
-    print("5 hotels and rooms created successfully!")
+    print("6 hotels and 30 rooms created successfully!")
 
 
 if __name__ == "__main__":

@@ -65,6 +65,14 @@
         <!-- ROOM DETAILS -->
 
         <div class="room-card">
+            <img
+            src="{{ url_for(
+                'static',
+                filename='images/rooms/room' ~ room.id ~ '.png'
+            ) }}"
+            alt="Room {{ room.room_number }}"
+            class="booking-room-image"
+             >
 
             <h3>
                 Room {{ room.room_number }}

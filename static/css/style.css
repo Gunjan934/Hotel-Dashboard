@@ -1,13 +1,13 @@
-/* =====================================================
+/* =========================================================
+   STAYLUXE
    HOTEL RESERVATION SYSTEM
-   LIGHT WARM THEME
-   Matches Current HTML Files
-===================================================== */
+   COMPLETE CSS FOR CURRENT HTML FILES
+========================================================= */
 
 
-/* =====================================================
-   RESET
-===================================================== */
+/* =========================================================
+   1. RESET
+========================================================= */
 
 * {
     margin: 0;
@@ -15,35 +15,42 @@
     box-sizing: border-box;
 }
 
-
-/* =====================================================
-   BODY
-===================================================== */
+html {
+    scroll-behavior: smooth;
+}
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     background-color: #f7f3ea;
     color: #3f4642;
     line-height: 1.6;
 }
 
-
-/* =====================================================
-   LINKS
-===================================================== */
-
 a {
     text-decoration: none;
+    color: inherit;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+button,
+input,
+select,
+textarea {
+    font-family: inherit;
 }
 
 
-/* =====================================================
-   NAVBAR
-===================================================== */
+/* =========================================================
+   2. NAVBAR
+========================================================= */
 
 .navbar {
     width: 100%;
-    min-height: 65px;
+    min-height: 72px;
 
     background-color: #fffdf8;
 
@@ -51,144 +58,155 @@ a {
     align-items: center;
     justify-content: space-between;
 
-    padding: 0 50px;
+    padding: 0 6%;
 
     border-bottom: 1px solid #e5ded2;
 
-    box-shadow: 0 2px 6px #e9e2d7;
-}
+    box-shadow: 0 2px 10px rgba(63, 70, 66, 0.06);
 
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
 
 .logo {
     color: #5f7564;
-    font-size: 21px;
+    font-size: 26px;
     font-weight: bold;
 }
-
 
 .nav-links {
     display: flex;
     align-items: center;
-    gap: 24px;
-}
 
+    /* increase space between links */
+    gap: 28px;
+}
 
 .nav-links a {
     color: #555d58;
-    font-size: 14px;
-}
 
+    font-size: 15px;
+
+    transition: color 0.2s ease;
+}
 
 .nav-links a:hover {
     color: #c98262;
 }
 
-
-/* =====================================================
-   CONTAINERS
-===================================================== */
-
-/* Used by most pages */
+/* =========================================================
+   3. COMMON CONTAINERS
+========================================================= */
 
 .page-container {
     width: 90%;
     max-width: 1200px;
-
-    margin: 35px auto;
+    margin: 45px auto;
 }
-
-
-/* Used by staff rooms and manage room */
 
 .container {
     width: 90%;
     max-width: 1200px;
-
-    margin: 35px auto;
+    margin: 45px auto;
 }
 
 
-/* =====================================================
-   PAGE HEADERS
-===================================================== */
+/* =========================================================
+   4. HEADINGS
+========================================================= */
+
+h1,
+h2,
+h3,
+h4 {
+    color: #5f7564;
+}
+
+h1 {
+    font-size: 34px;
+}
+
+h2 {
+    font-size: 29px;
+    margin-bottom: 12px;
+}
+
+h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+
+/* =========================================================
+   5. DASHBOARD HEADER
+========================================================= */
 
 .dashboard-header {
-    margin-bottom: 25px;
+    margin-bottom: 30px;
 }
-
 
 .dashboard-header h1 {
     color: #5f7564;
-    font-size: 30px;
-    margin-bottom: 8px;
+    font-size: 32px;
+    margin-bottom: 7px;
 }
-
 
 .dashboard-header p {
     color: #747b76;
 }
 
 
-/* Normal headings */
-
-h1,
-h2,
-h3 {
-    color: #5f7564;
-}
-
-
-h2 {
-    margin-bottom: 12px;
-}
-
-
-h3 {
-    margin-bottom: 10px;
-}
-
-
-/* =====================================================
-   BUTTONS
-===================================================== */
+/* =========================================================
+   6. BUTTONS
+========================================================= */
 
 .primary-btn {
     display: inline-block;
 
-    width: 100%;
-
-    padding: 11px 18px;
+    padding: 12px 20px;
 
     background-color: #c98262;
     color: white;
 
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
 
-    font-size: 15px;
+    font-size: 14px;
+    font-weight: 600;
 
     cursor: pointer;
-}
 
+    transition: 0.2s ease;
+
+    text-align: center;
+}
 
 .primary-btn:hover {
     background-color: #b86f51;
+    transform: translateY(-1px);
 }
 
 
 .dashboard-btn {
     display: inline-block;
 
-    padding: 9px 16px;
+    padding: 10px 17px;
 
     background-color: #5f7564;
     color: white;
 
-    border-radius: 5px;
+    border: none;
+    border-radius: 6px;
 
     font-size: 14px;
-}
 
+    cursor: pointer;
+
+    transition: 0.2s ease;
+
+    text-align: center;
+}
 
 .dashboard-btn:hover {
     background-color: #506657;
@@ -198,155 +216,401 @@ h3 {
 .secondary-btn {
     display: inline-block;
 
-    padding: 9px 16px;
+    padding: 10px 17px;
 
     background-color: #fffdf8;
     color: #5f7564;
 
     border: 1px solid #9aab9e;
-    border-radius: 5px;
+    border-radius: 6px;
 
     font-size: 14px;
-}
 
+    transition: 0.2s ease;
+
+    text-align: center;
+}
 
 .secondary-btn:hover {
-    background-color: #edf2ed;
+    background-color: #e8f0e9;
 }
 
 
-/* =====================================================
-   AUTH PAGE
-===================================================== */
+/* =========================================================
+   7. HOME PAGE HERO
+========================================================= */
 
-.auth-page {
-    min-height: calc(100vh - 65px);
+.hero-section {
+    min-height: 560px;
+
+    background-image:
+        linear-gradient(
+            rgba(0, 0, 0, 0.32),
+            rgba(0, 0, 0, 0.32)
+        ),
+        url("../images/hero/home-bg.jpg");
+
+    background-size: cover;
+    background-position: center;
 
     display: flex;
-    justify-content: center;
     align-items: center;
+}
 
-    padding: 30px 15px;
+.hero-overlay {
+    width: 100%;
+}
+
+.hero-content {
+    width: 90%;
+    max-width: 1200px;
+
+    margin: 0 auto;
+
+    color: white;
+}
+
+.hero-small-text {
+    color: white;
+
+    font-size: 13px;
+
+    letter-spacing: 2px;
+
+    font-weight: bold;
+
+    margin-bottom: 12px;
+}
+
+.hero-content h1 {
+    color: white;
+
+    font-size: 56px;
+
+    line-height: 1.1;
+
+    max-width: 700px;
+
+    margin-bottom: 18px;
+}
+
+.hero-content > p {
+    color: white;
+
+    max-width: 650px;
+
+    font-size: 17px;
+
+    line-height: 1.7;
 }
 
 
-.auth-container {
-    width: 100%;
-    max-width: 420px;
+/* =========================================================
+   8. HOME SEARCH
+========================================================= */
 
-    background-color: #fffdf8;
+.hero-search {
+    margin-top: 30px;
 
-    padding: 35px;
+    max-width: 720px;
+}
 
-    border: 1px solid #e5ded2;
+.search-box {
+    display: flex;
+
+    background-color: white;
+
+    padding: 7px;
 
     border-radius: 8px;
 
-    box-shadow: 0 4px 12px #e2dbd0;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.16);
+}
+
+.search-box input {
+    flex: 1;
+
+    border: none;
+    outline: none;
+
+    padding: 14px;
+
+    font-size: 15px;
+
+    color: #3f4642;
+
+    background: transparent;
+}
+
+.search-box input::placeholder {
+    color: #999;
+}
+
+.search-box .primary-btn {
+    white-space: nowrap;
+
+    border-radius: 6px;
 }
 
 
-.auth-header {
+/* =========================================================
+   9. HOME FEATURES
+========================================================= */
+
+.features-section {
+    width: 90%;
+    max-width: 1200px;
+
+    margin: 42px auto;
+
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 18px;
+}
+
+.feature {
+    background-color: #fffdf8;
+
+    border: 1px solid #e5ded2;
+
+    border-radius: 10px;
+
+    padding: 24px 18px;
+
     text-align: center;
 
-    margin-bottom: 25px;
+    box-shadow: 0 5px 18px rgba(63, 70, 66, 0.06);
+}
+
+.feature-icon {
+    font-size: 28px;
+
+    margin-bottom: 10px;
+}
+
+.feature h3 {
+    color: #5f7564;
+
+    font-size: 17px;
+
+    margin-bottom: 7px;
+}
+
+.feature p {
+    color: #747b76;
+
+    font-size: 13px;
+
+    line-height: 1.5;
 }
 
 
-.auth-header h1 {
+/* =========================================================
+   10. SECTION HEADING
+========================================================= */
+
+.section-heading {
+    text-align: center;
+
+    margin-bottom: 35px;
+}
+
+.section-label {
+    color: #c98262;
+
+    font-size: 12px;
+
+    font-weight: bold;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 7px;
+}
+
+.section-heading h2 {
     color: #5f7564;
+
+    font-size: 34px;
 
     margin-bottom: 8px;
 }
 
-
-.auth-header p {
+.section-heading > p:last-child {
     color: #747b76;
+
+    max-width: 600px;
+
+    margin: auto;
 }
 
 
-/* =====================================================
-   FORMS
-===================================================== */
+/* =========================================================
+   11. HOTEL CARDS
+========================================================= */
 
-.form-group {
-    margin-bottom: 18px;
+.hotel-grid {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 25px;
 }
 
-
-.form-group label {
-    display: block;
-
-    margin-bottom: 6px;
-
-    color: #4c534f;
-
-    font-size: 14px;
-    font-weight: bold;
-}
-
-
-.form-group input,
-.form-group select {
-    width: 100%;
-
-    padding: 10px 11px;
-
+.hotel-card {
     background-color: #fffdf8;
 
-    border: 1px solid #d5cfc5;
+    border: 1px solid #e5ded2;
 
-    border-radius: 5px;
+    border-radius: 10px;
 
-    color: #3f4642;
+    overflow: hidden;
+
+    box-shadow: 0 6px 20px rgba(63, 70, 66, 0.08);
+
+    display: flex;
+    flex-direction: column;
+
+    transition: 0.25s ease;
+}
+
+.hotel-card:hover {
+    transform: translateY(-5px);
+
+    box-shadow: 0 12px 28px rgba(63, 70, 66, 0.12);
+}
+
+
+/* HOTEL IMAGE */
+
+.hotel-image-container {
+    width: 100%;
+
+    height: 235px;
+
+    overflow: hidden;
+
+    background-color: #ebe5da;
+}
+
+.hotel-image {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transition: transform 0.3s ease;
+}
+
+.hotel-card:hover .hotel-image {
+    transform: scale(1.03);
+}
+
+
+/* HOTEL TEXT */
+
+.hotel-content {
+    padding: 22px;
+
+    display: flex;
+    flex-direction: column;
+
+    flex: 1;
+}
+
+.hotel-content h3 {
+    color: #5f7564;
+
+    font-size: 21px;
+
+    margin-bottom: 8px;
+}
+
+.hotel-content p {
+    color: #747b76;
 
     font-size: 14px;
+
+    margin-bottom: 7px;
 }
 
-
-.form-group input:focus,
-.form-group select:focus {
-    outline: none;
-
-    border-color: #7f9884;
-
-    box-shadow: 0 0 0 2px #e8f0e9;
-}
-
-
-/* =====================================================
-   LOGIN TEXT
-===================================================== */
-
-.login-text {
-    text-align: center;
-
-    margin-top: 18px;
-
-    color: #747b76;
-}
-
-
-.login-text a {
-    color: #c98262;
+.hotel-location {
+    color: #c98262 !important;
 
     font-weight: bold;
 }
 
+.hotel-phone {
+    margin-bottom: 17px !important;
+}
 
-.login-text a:hover {
-    text-decoration: underline;
+.hotel-content .primary-btn {
+    width: fit-content;
+
+    margin-top: auto;
 }
 
 
-/* =====================================================
-   HOME PAGE
-===================================================== */
+/* =========================================================
+   12. HOTEL DETAILS PAGE
+========================================================= */
 
-/*
-   Your current home.html uses
-   room-grid and room-card.
-*/
+.hotel-details-page {
+    width: 90%;
+    max-width: 1200px;
+
+    margin: 45px auto;
+}
+
+.hotel-hero-card {
+    background-color: #fffdf8;
+
+    border: 1px solid #e5ded2;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+
+    box-shadow: 0 7px 22px rgba(63, 70, 66, 0.08);
+
+    margin-bottom: 40px;
+}
+
+.hotel-details-image {
+    width: 100%;
+
+    height: 400px;
+
+    object-fit: cover;
+}
+
+.hotel-hero-content {
+    padding: 28px;
+}
+
+.hotel-hero-content h1 {
+    color: #5f7564;
+
+    font-size: 34px;
+
+    margin-bottom: 8px;
+}
+
+.hotel-hero-content p {
+    color: #747b76;
+
+    margin-bottom: 7px;
+}
+
+.hotel-hero-content .hotel-location {
+    color: #c98262;
+}
+
+
+/* =========================================================
+   13. ROOM GRID
+========================================================= */
 
 .room-grid {
     display: grid;
@@ -355,134 +619,165 @@ h3 {
 
     gap: 24px;
 
-    margin-top: 20px;
+    margin-top: 25px;
 }
 
+
+/* =========================================================
+   14. ROOM CARD
+========================================================= */
 
 .room-card {
     background-color: #fffdf8;
 
-    padding: 22px;
-
     border: 1px solid #e5ded2;
 
-    border-radius: 8px;
+    border-radius: 10px;
 
-    box-shadow: 0 3px 10px #e2dbd0;
+    overflow: hidden;
+
+    box-shadow: 0 6px 20px rgba(63, 70, 66, 0.08);
 
     display: flex;
+
     flex-direction: column;
+
+    transition: 0.2s ease;
+}
+
+.room-card:hover {
+    transform: translateY(-4px);
+
+    box-shadow: 0 10px 25px rgba(63, 70, 66, 0.12);
 }
 
 
-.room-card h3 {
-    color: #5f7564;
+/* ROOM IMAGE */
 
-    font-size: 19px;
-
-    margin-bottom: 12px;
-}
-
-
-.room-card p {
-    color: #626a65;
-
-    margin-bottom: 8px;
-}
-
-
-/* =====================================================
-   HOTEL IMAGE
-===================================================== */
-
-.hotel-image {
+.room-image {
     width: 100%;
 
-    height: 210px;
+    height: 220px;
 
     object-fit: cover;
-
-    display: block;
-
-    margin-bottom: 16px;
-
-    border-radius: 6px;
 }
 
 
-/* =====================================================
-   HOTEL DETAILS
-===================================================== */
+/* ROOM INFORMATION */
 
-.hotel-details-card {
-    background-color: #fffdf8;
+.room-content {
+    padding: 21px;
 
-    padding: 25px;
+    display: flex;
 
-    margin-bottom: 30px;
+    flex-direction: column;
 
-    border: 1px solid #e5ded2;
-
-    border-radius: 8px;
-
-    box-shadow: 0 3px 10px #e2dbd0;
+    flex: 1;
 }
 
-
-.hotel-details-card h2 {
+.room-content h3 {
     color: #5f7564;
 
-    margin-bottom: 15px;
+    font-size: 20px;
+
+    margin-bottom: 10px;
+}
+
+.room-content p {
+    color: #747b76;
+
+    font-size: 14px;
+
+    margin-bottom: 7px;
 }
 
 
-.hotel-details-card p {
-    color: #626a65;
-
-    margin-bottom: 8px;
-}
-
-
-/* =====================================================
-   ROOM PRICE
-===================================================== */
+/* ROOM PRICE */
 
 .room-price {
     color: #c98262 !important;
 
-    font-size: 18px;
+    font-size: 19px;
 
     font-weight: bold;
 
     margin: 12px 0 !important;
 }
 
+.room-price span {
+    font-size: 13px;
 
-/* =====================================================
-   SEARCH SECTION
-===================================================== */
+    font-weight: normal;
+}
+
+
+/* ROOM ACTIONS */
+
+.room-actions {
+    margin-top: auto;
+
+    padding-top: 12px;
+}
+
+
+/* =========================================================
+   15. AVAILABILITY BADGES
+========================================================= */
+
+.available-badge {
+    display: inline-block;
+
+    padding: 5px 11px;
+
+    background-color: #e8f0e9;
+
+    color: #5f7564;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    font-weight: bold;
+}
+
+.unavailable {
+    display: inline-block;
+
+    padding: 5px 10px;
+
+    background-color: #f3dddd;
+
+    color: #a65d58 !important;
+
+    border-radius: 20px;
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   16. AVAILABILITY SEARCH
+========================================================= */
 
 .search-section {
     background-color: #fffdf8;
 
-    padding: 25px;
+    padding: 28px;
 
-    margin-bottom: 30px;
+    margin-bottom: 32px;
 
     border: 1px solid #e5ded2;
 
-    border-radius: 8px;
+    border-radius: 10px;
 
-    box-shadow: 0 3px 10px #e2dbd0;
+    box-shadow: 0 6px 20px rgba(63, 70, 66, 0.07);
 }
-
 
 .search-section h2 {
     color: #5f7564;
 
     margin-bottom: 20px;
 }
-
 
 .search-form {
     display: grid;
@@ -495,21 +790,140 @@ h3 {
 }
 
 
-.search-form .form-group {
-    margin-bottom: 0;
+/* =========================================================
+   17. FORM GROUP
+========================================================= */
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #4c534f;
+
+    font-size: 13px;
+
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+
+    padding: 12px;
+
+    background-color: white;
+
+    border: 1px solid #d5cfc5;
+
+    border-radius: 6px;
+
+    color: #3f4642;
+
+    font-size: 14px;
+
+    outline: none;
+}
+
+.form-group textarea {
+    resize: vertical;
+
+    min-height: 100px;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #7f9884;
+
+    box-shadow: 0 0 0 3px #e8f0e9;
 }
 
 
-.search-form .primary-btn {
-    width: auto;
+/* =========================================================
+   18. AUTH PAGES
+========================================================= */
 
-    min-width: 140px;
+.auth-page {
+    min-height: calc(100vh - 72px);
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 45px 15px;
+}
+
+.auth-container {
+    width: 100%;
+
+    max-width: 450px;
+
+    background-color: #fffdf8;
+
+    padding: 35px;
+
+    border: 1px solid #e5ded2;
+
+    border-radius: 10px;
+
+    box-shadow: 0 8px 25px rgba(63, 70, 66, 0.09);
+}
+
+.auth-header {
+    text-align: center;
+
+    margin-bottom: 27px;
+}
+
+.auth-header h1 {
+    color: #5f7564;
+
+    font-size: 30px;
+
+    margin-bottom: 8px;
+}
+
+.auth-header p {
+    color: #747b76;
+
+    font-size: 14px;
 }
 
 
-/* =====================================================
-   DASHBOARD
-===================================================== */
+/* LOGIN TEXT */
+
+.login-text {
+    text-align: center;
+
+    margin-top: 18px;
+
+    color: #747b76;
+
+    font-size: 14px;
+}
+
+.login-text a {
+    color: #c98262;
+
+    font-weight: bold;
+}
+
+.login-text a:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================================
+   19. CUSTOMER DASHBOARD
+========================================================= */
 
 .dashboard-grid {
     display: grid;
@@ -518,9 +932,8 @@ h3 {
 
     gap: 22px;
 
-    margin-top: 20px;
+    margin-top: 25px;
 }
-
 
 .dashboard-card {
     background-color: #fffdf8;
@@ -531,14 +944,14 @@ h3 {
 
     border: 1px solid #e5ded2;
 
-    border-radius: 8px;
+    border-radius: 10px;
 
-    box-shadow: 0 3px 10px #e2dbd0;
+    box-shadow: 0 6px 20px rgba(63, 70, 66, 0.07);
 
     display: flex;
+
     flex-direction: column;
 }
-
 
 .dashboard-card h3 {
     color: #5f7564;
@@ -546,9 +959,10 @@ h3 {
     margin-bottom: 10px;
 }
 
-
 .dashboard-card p {
     color: #747b76;
+
+    font-size: 14px;
 
     margin-bottom: 20px;
 
@@ -556,9 +970,57 @@ h3 {
 }
 
 
-/* =====================================================
-   BOOKINGS
-===================================================== */
+/* =========================================================
+   20. BOOKING PAGE
+========================================================= */
+
+.booking-card {
+    background-color: #fffdf8;
+
+    padding: 28px;
+
+    border: 1px solid #e5ded2;
+
+    border-radius: 10px;
+
+    box-shadow: 0 6px 20px rgba(63, 70, 66, 0.07);
+
+    margin-bottom: 20px;
+}
+
+.booking-card h3 {
+    color: #5f7564;
+
+    margin-bottom: 14px;
+}
+
+.booking-card p {
+    color: #747b76;
+
+    font-size: 14px;
+
+    margin-bottom: 8px;
+}
+
+
+/* BOOKING ROOM IMAGE */
+
+.booking-room-image {
+    width: 100%;
+
+    height: 310px;
+
+    object-fit: cover;
+
+    border-radius: 8px;
+
+    margin-bottom: 22px;
+}
+
+
+/* =========================================================
+   21. BOOKINGS LIST
+========================================================= */
 
 .booking-list {
     display: flex;
@@ -568,19 +1030,9 @@ h3 {
     gap: 18px;
 }
 
-
-.booking-card {
-    background-color: #fffdf8;
-
-    padding: 22px;
-
-    border: 1px solid #e5ded2;
-
-    border-radius: 8px;
-
-    box-shadow: 0 3px 10px #e2dbd0;
+.booking-list .booking-card {
+    margin-bottom: 0;
 }
-
 
 .booking-card-header {
     display: flex;
@@ -594,43 +1046,169 @@ h3 {
     margin-bottom: 15px;
 }
 
-
 .booking-card-header h3 {
     color: #5f7564;
+
+    margin-bottom: 0;
 }
 
 
-.booking-card p {
-    color: #626a65;
-
-    margin-bottom: 8px;
-}
-
-
-/* =====================================================
-   STATUS
-===================================================== */
+/* =========================================================
+   22. STATUS
+========================================================= */
 
 .status {
     display: inline-block;
 
-    padding: 5px 10px;
+    padding: 5px 11px;
 
     background-color: #e8f0e9;
 
     color: #5f7564;
 
-    border-radius: 4px;
+    border-radius: 20px;
 
-    font-size: 13px;
+    font-size: 12px;
 
     font-weight: bold;
 }
 
 
-/* =====================================================
-   TABLE
-===================================================== */
+/* =========================================================
+   23. BILL
+========================================================= */
+
+.bill-card {
+    width: 100%;
+
+    max-width: 800px;
+
+    margin: 35px auto;
+
+    padding: 30px;
+
+    background-color: #fffdf8;
+
+    border: 1px solid #e5ded2;
+
+    border-radius: 10px;
+
+    box-shadow: 0 6px 20px rgba(63, 70, 66, 0.07);
+}
+
+.bill-card h2 {
+    color: #5f7564;
+
+    margin-bottom: 20px;
+}
+
+.bill-row {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 12px 0;
+
+    border-bottom: 1px solid #eee9e1;
+}
+
+.bill-row:last-child {
+    border-bottom: none;
+}
+
+.bill-total {
+    color: #c98262;
+
+    font-size: 21px;
+
+    font-weight: bold;
+
+    margin-top: 10px;
+}
+
+
+/* =========================================================
+   24. STAFF HEADER
+========================================================= */
+
+.staff-header {
+    background-color: #fffdf8;
+
+    padding: 27px;
+
+    margin-bottom: 28px;
+
+    border: 1px solid #e5ded2;
+
+    border-radius: 10px;
+
+    box-shadow: 0 6px 20px rgba(63, 70, 66, 0.07);
+}
+
+.staff-header h1 {
+    color: #5f7564;
+
+    margin-bottom: 6px;
+}
+
+.staff-header p {
+    color: #747b76;
+}
+
+
+/* =========================================================
+   25. STAFF HOTEL CARD
+========================================================= */
+
+.staff-hotel-card {
+    max-width: 750px;
+
+    padding: 28px;
+
+    background-color: #fffdf8;
+
+    border: 1px solid #e5ded2;
+
+    border-radius: 10px;
+
+    box-shadow: 0 6px 20px rgba(63, 70, 66, 0.07);
+}
+
+.staff-hotel-card h2 {
+    color: #5f7564;
+
+    margin-bottom: 15px;
+}
+
+.staff-hotel-card p {
+    color: #747b76;
+
+    margin-bottom: 8px;
+}
+
+
+/* =========================================================
+   26. STAFF CUSTOMER CARDS
+========================================================= */
+
+.customer-card {
+    background-color: #fffdf8;
+
+    padding: 22px;
+
+    border: 1px solid #e5ded2;
+
+    border-radius: 10px;
+
+    box-shadow: 0 6px 20px rgba(63, 70, 66, 0.07);
+}
+
+
+/* =========================================================
+   27. TABLE
+========================================================= */
 
 table {
     width: 100%;
@@ -641,13 +1219,12 @@ table {
 
     border: 1px solid #e5ded2;
 
-    border-radius: 8px;
+    border-radius: 10px;
 
     overflow: hidden;
 
-    box-shadow: 0 3px 10px #e2dbd0;
+    box-shadow: 0 6px 20px rgba(63, 70, 66, 0.07);
 }
-
 
 table th {
     background-color: #eef3ee;
@@ -658,11 +1235,10 @@ table th {
 
     text-align: left;
 
-    font-size: 14px;
+    font-size: 13px;
 
     border-bottom: 1px solid #dce5dd;
 }
-
 
 table td {
     padding: 13px 15px;
@@ -676,33 +1252,21 @@ table td {
     vertical-align: middle;
 }
 
-
 table tr:last-child td {
     border-bottom: none;
 }
 
-
-table tr:hover {
+table tr:hover td {
     background-color: #fbf8f2;
 }
 
 
-/* =====================================================
-   TABLE BUTTONS
-===================================================== */
+/* =========================================================
+   28. NO DATA
+========================================================= */
 
-table .dashboard-btn {
-    padding: 7px 12px;
-
-    font-size: 13px;
-}
-
-
-/* =====================================================
-   NO DATA
-===================================================== */
-
-.no-data {
+.no-data,
+.no-hotels {
     background-color: #fffdf8;
 
     padding: 35px;
@@ -711,175 +1275,26 @@ table .dashboard-btn {
 
     border: 1px solid #e5ded2;
 
-    border-radius: 8px;
+    border-radius: 10px;
 
-    box-shadow: 0 3px 10px #e2dbd0;
+    box-shadow: 0 6px 20px rgba(63, 70, 66, 0.07);
 
     color: #747b76;
+
+    grid-column: 1 / -1;
 }
 
-
-.no-data h3 {
+.no-data h3,
+.no-hotels h3 {
     color: #5f7564;
 
     margin-bottom: 8px;
 }
 
 
-/* =====================================================
-   BILL
-===================================================== */
-
-.bill-card {
-    width: 100%;
-
-    max-width: 800px;
-
-    margin: 0 auto;
-
-    padding: 30px;
-
-    background-color: #fffdf8;
-
-    border: 1px solid #e5ded2;
-
-    border-radius: 8px;
-
-    box-shadow: 0 3px 10px #e2dbd0;
-}
-
-
-.bill-card h2 {
-    color: #5f7564;
-
-    margin-bottom: 20px;
-}
-
-
-.bill-row {
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: center;
-
-    padding: 11px 0;
-
-    border-bottom: 1px solid #eee9e1;
-}
-
-
-.bill-row:last-child {
-    border-bottom: none;
-}
-
-
-.bill-total {
-    color: #c98262;
-
-    font-size: 20px;
-
-    font-weight: bold;
-
-    margin-top: 10px;
-}
-
-
-/* =====================================================
-   STAFF HEADER
-===================================================== */
-
-.staff-header {
-    background-color: #fffdf8;
-
-    padding: 25px;
-
-    margin-bottom: 25px;
-
-    border: 1px solid #e5ded2;
-
-    border-radius: 8px;
-
-    box-shadow: 0 3px 10px #e2dbd0;
-}
-
-
-.staff-header h1 {
-    color: #5f7564;
-
-    margin-bottom: 6px;
-}
-
-
-.staff-header p {
-    color: #747b76;
-}
-
-
-/* =====================================================
-   STAFF HOTEL
-===================================================== */
-
-.staff-hotel-card {
-    max-width: 700px;
-
-    padding: 25px;
-
-    background-color: #fffdf8;
-
-    border: 1px solid #e5ded2;
-
-    border-radius: 8px;
-
-    box-shadow: 0 3px 10px #e2dbd0;
-}
-
-
-.staff-hotel-card h2 {
-    color: #5f7564;
-
-    margin-bottom: 15px;
-}
-
-
-.staff-hotel-card p {
-    color: #626a65;
-
-    margin-bottom: 8px;
-}
-
-
-/* =====================================================
-   ROOM ACTIONS
-===================================================== */
-
-.room-actions {
-    margin-top: auto;
-
-    padding-top: 12px;
-}
-
-
-/* =====================================================
-   STAFF CUSTOMERS
-===================================================== */
-
-.customer-card {
-    background-color: #fffdf8;
-
-    padding: 20px;
-
-    border: 1px solid #e5ded2;
-
-    border-radius: 8px;
-
-    box-shadow: 0 3px 10px #e2dbd0;
-}
-
-
-/* =====================================================
-   STAFF ROOM MANAGEMENT
-===================================================== */
+/* =========================================================
+   29. ROOM MANAGEMENT
+========================================================= */
 
 .room-management-card {
     display: flex;
@@ -889,10 +1304,89 @@ table .dashboard-btn {
     gap: 10px;
 }
 
+.room-actions {
+    margin-top: auto;
 
-/* =====================================================
-   SMALL TEXT
-===================================================== */
+    padding-top: 12px;
+}
+
+
+/* =========================================================
+   30. FOOTER
+========================================================= */
+
+.hotel-footer {
+    margin-top: 70px;
+
+    padding: 50px 7% 70px;
+
+    background-color: #fffdf8;
+
+    border-top: 1px solid #e5ded2;
+
+    display: grid;
+
+    grid-template-columns: 2fr 1fr 1fr;
+
+    gap: 40px;
+
+    position: relative;
+}
+
+.hotel-footer h2 {
+    color: #5f7564;
+
+    font-size: 26px;
+
+    margin-bottom: 10px;
+}
+
+.hotel-footer h4 {
+    color: #5f7564;
+
+    margin-bottom: 13px;
+}
+
+.hotel-footer p {
+    color: #747b76;
+
+    font-size: 14px;
+}
+
+.hotel-footer a {
+    display: block;
+
+    color: #3f4642;
+
+    font-size: 14px;
+
+    margin-bottom: 8px;
+}
+
+.hotel-footer a:hover {
+    color: #c98262;
+}
+
+.footer-bottom {
+    position: absolute;
+
+    bottom: 15px;
+
+    left: 0;
+
+    width: 100%;
+
+    text-align: center;
+
+    font-size: 12px;
+
+    color: #747b76;
+}
+
+
+/* =========================================================
+   31. SMALL TEXT
+========================================================= */
 
 .small-text {
     color: #747b76;
@@ -901,58 +1395,35 @@ table .dashboard-btn {
 }
 
 
-/* =====================================================
-   FORM SPACING
-===================================================== */
+/* =========================================================
+   32. RESPONSIVE - TABLET
+========================================================= */
 
-form {
-    width: 100%;
-}
+@media (max-width: 1000px) {
 
-
-/* =====================================================
-   HOME / HOTEL CARD BUTTON ALIGNMENT
-===================================================== */
-
-.room-card .dashboard-btn {
-    align-self: flex-start;
-
-    margin-top: 8px;
-}
-
-
-/* =====================================================
-   MOBILE
-===================================================== */
-
-@media (max-width: 900px) {
-
-    .navbar {
-        padding: 0 25px;
-    }
-
-
+    .hotel-grid,
     .room-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 
+    .features-section {
+        grid-template-columns: repeat(2, 1fr);
+    }
 
     .dashboard-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 
-
-    .search-form {
-        grid-template-columns: 1fr 1fr;
-    }
-
-
-    .search-form .primary-btn {
-        width: 100%;
+    .hero-content h1 {
+        font-size: 46px;
     }
 
 }
 
+
+/* =========================================================
+   33. RESPONSIVE - MOBILE
+========================================================= */
 
 @media (max-width: 700px) {
 
@@ -968,43 +1439,74 @@ form {
         gap: 12px;
     }
 
-
     .nav-links {
         width: 100%;
 
         flex-wrap: wrap;
 
-        gap: 12px;
+        gap: 12px 18px;
     }
-
 
     .page-container,
-    .container {
+    .container,
+    .hotel-details-page {
         width: 92%;
 
-        margin: 25px auto;
+        margin: 28px auto;
     }
 
-
-    .room-grid {
-        grid-template-columns: 1fr;
+    .hero-section {
+        min-height: 500px;
     }
 
+    .hero-content h1 {
+        font-size: 38px;
+    }
 
+    .hero-content > p {
+        font-size: 15px;
+    }
+
+    .search-box {
+        flex-direction: column;
+
+        padding: 8px;
+    }
+
+    .search-box input {
+        padding: 14px;
+    }
+
+    .search-box .primary-btn {
+        width: 100%;
+    }
+
+    .features-section,
+    .hotel-grid,
+    .room-grid,
     .dashboard-grid {
         grid-template-columns: 1fr;
     }
 
+    .hotel-image-container {
+        height: 220px;
+    }
+
+    .hotel-details-image {
+        height: 250px;
+    }
+
+    .booking-room-image {
+        height: 230px;
+    }
 
     .search-form {
         grid-template-columns: 1fr;
     }
 
-
     .search-form .primary-btn {
         width: 100%;
     }
-
 
     .auth-container {
         width: 95%;
@@ -1012,13 +1514,17 @@ form {
         padding: 25px;
     }
 
-
     .booking-card-header {
         flex-direction: column;
 
         align-items: flex-start;
     }
 
+    .hotel-footer {
+        grid-template-columns: 1fr;
+
+        padding-bottom: 75px;
+    }
 
     table {
         display: block;
@@ -1028,14 +1534,7 @@ form {
         white-space: nowrap;
     }
 
-
-    .hotel-image {
-        height: 190px;
-    }
-
-
     .bill-card {
-        padding: 20px;
+        padding: 22px;
     }
-
 }

@@ -14,11 +14,19 @@ routes = Blueprint("routes", __name__)
 @routes.route("/")
 def home():
 
-    hotels = Hotel.query.all()
+    location = request.args.get("location", "").strip()
+
+    if location:
+        hotels = Hotel.query.filter(
+            Hotel.city.ilike(f"%{location}%")
+        ).all()
+    else:
+        hotels = Hotel.query.all()
 
     return render_template(
         "home.html",
-        hotels=hotels
+        hotels=hotels,
+        location=location
     )
 @routes.route("/hotel/<int:hotel_id>")
 def hotel_details(hotel_id):
