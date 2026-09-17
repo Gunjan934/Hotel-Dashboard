@@ -2,50 +2,49 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>Customers</title>
+    <title>Customers - StayLuxe</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/style.css') }}">
-
 </head>
 
 <body>
 
+    <!-- =========================
+         NAVBAR
+    ========================== -->
+
     <nav class="navbar">
 
-        <a href="{{ url_for('routes.staff_dashboard') }}"
-           class="logo">
+        <div class="logo">
+            <a href="{{ url_for('routes.home') }}">
+                StayLuxe
+            </a>
+        </div>
 
-            Hotel Reservation System
-
-        </a>
-
-        <div class="nav-links">
+        <div class="nav-right">
 
             <a href="{{ url_for('routes.staff_dashboard') }}">
                 Dashboard
             </a>
 
             <a href="{{ url_for('routes.staff_hotel') }}">
-                Hotel Details
+                My Hotel
             </a>
 
-            <a href="{{ url_for('routes.staff_customers') }}">
-                Customers
+            <a href="{{ url_for('routes.staff_rooms') }}">
+                Rooms
             </a>
 
             <a href="{{ url_for('routes.staff_bookings') }}">
                 Bookings
             </a>
 
-            <a href="{{ url_for('routes.staff_rooms') }}">
-                Rooms
+            <a href="{{ url_for('routes.staff_customers') }}">
+                Customers
             </a>
 
             <a href="{{ url_for('routes.logout') }}">
@@ -57,16 +56,54 @@
     </nav>
 
 
-    <div class="page-container">
+    <!-- =========================
+         FLASH MESSAGES
+    ========================== -->
 
-        <div class="dashboard-header">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+
+        {% if messages %}
+
+            <div class="flash-container">
+
+                {% for category, message in messages %}
+
+                    <div class="flash-message {{ category }}">
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% endif %}
+
+    {% endwith %}
+
+
+    <!-- =========================
+         CUSTOMERS SECTION
+    ========================== -->
+
+    <main class="bookings-container">
+
+        <a href="{{ url_for('routes.staff_dashboard') }}"
+           class="back-link">
+
+            ← Back to Dashboard
+
+        </a>
+
+
+        <div class="section-heading">
 
             <h1>
                 Hotel Customers
             </h1>
 
             <p>
-                Customers who have bookings in your hotel.
+                Customers who have made bookings at
+                {{ hotel.name }}.
             </p>
 
         </div>
@@ -74,44 +111,95 @@
 
         {% if customers %}
 
-        <div class="booking-list">
+            <div class="customer-grid">
 
-            {% for customer in customers %}
+                {% for customer in customers %}
 
-            <div class="booking-card">
+                    <div class="customer-card">
+
+                        <!-- CUSTOMER NAME -->
+
+                        <h2>
+                            {{ customer.name }}
+                        </h2>
+
+
+                        <!-- EMAIL -->
+
+                        <p>
+
+                            <strong>
+                                Email:
+                            </strong>
+
+                            {{ customer.email }}
+
+                        </p>
+
+
+                        <!-- ROLE -->
+
+                        <p>
+
+                            <strong>
+                                Account Type:
+                            </strong>
+
+                            Customer
+
+                        </p>
+
+
+                        <!-- BOOKING COUNT -->
+
+                        <p>
+
+                            <strong>
+                                Bookings at this hotel:
+                            </strong>
+
+                            {{ customer.booking_count }}
+
+                        </p>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+
+        {% else %}
+
+            <div class="no-hotels">
 
                 <h3>
-                    {{ customer.name }}
+                    No Customers Found
                 </h3>
 
                 <p>
-                    <strong>Email:</strong>
-                    {{ customer.email }}
+                    No customers have made bookings
+                    at this hotel yet.
                 </p>
 
             </div>
 
-            {% endfor %}
-
-        </div>
-
-        {% else %}
-
-        <div class="no-data">
-
-            <h3>
-                No Customers Found
-            </h3>
-
-            <p>
-                No customers have booked a room in this hotel yet.
-            </p>
-
-        </div>
-
         {% endif %}
 
-    </div>
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer class="footer">
+
+        <p class="footer-bottom">
+            © 2026 StayLuxe. All rights reserved.
+        </p>
+
+    </footer>
 
 </body>
 

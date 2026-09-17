@@ -2,41 +2,49 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>Manage Room</title>
+    <title>Manage Room - StayLuxe</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/style.css') }}">
-
 </head>
+
 <body>
+
+    <!-- =========================
+         NAVBAR
+    ========================== -->
 
     <nav class="navbar">
 
-        <a href="{{ url_for('routes.staff_dashboard') }}"
-           class="logo">
+        <div class="logo">
+            <a href="{{ url_for('routes.home') }}">
+                StayLuxe
+            </a>
+        </div>
 
-            Grand Palace Hotel
-
-        </a>
-
-        <div class="nav-links">
+        <div class="nav-right">
 
             <a href="{{ url_for('routes.staff_dashboard') }}">
                 Dashboard
+            </a>
+
+            <a href="{{ url_for('routes.staff_hotel') }}">
+                My Hotel
+            </a>
+
+            <a href="{{ url_for('routes.staff_rooms') }}">
+                Rooms
             </a>
 
             <a href="{{ url_for('routes.staff_bookings') }}">
                 Bookings
             </a>
 
-            <a href="{{ url_for('routes.staff_rooms') }}">
-                Rooms
+            <a href="{{ url_for('routes.staff_customers') }}">
+                Customers
             </a>
 
             <a href="{{ url_for('routes.logout') }}">
@@ -48,101 +56,221 @@
     </nav>
 
 
-    <div class="container">
+    <!-- =========================
+         FLASH MESSAGES
+    ========================== -->
 
-        <h1>Manage Room</h1>
+    {% with messages = get_flashed_messages(with_categories=true) %}
 
-        <div class="room-card">
+        {% if messages %}
 
-            <h3>
-                Room {{ room.room_number }}
-            </h3>
+            <div class="flash-container">
+
+                {% for category, message in messages %}
+
+                    <div class="flash-message {{ category }}">
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% endif %}
+
+    {% endwith %}
+
+
+    <!-- =========================
+         MANAGE ROOM
+    ========================== -->
+
+    <main class="booking-container">
+
+        <a href="{{ url_for('routes.staff_rooms') }}"
+           class="back-link">
+
+            ← Back to Rooms
+
+        </a>
+
+
+        <div class="section-heading">
+
+            <h1>
+                Manage Room {{ room.room_number }}
+            </h1>
 
             <p>
-                <strong>Room Type:</strong>
-                {{ room.room_type.name }}
-            </p>
-
-
-            <p>
-                <strong>Capacity:</strong>
-                {{ room.room_type.capacity }}
-                guests
-            </p>
-
-
-            <p>
-                <strong>Price:</strong>
-                ₹{{ room.price_per_night }}
-                per night
-            </p>
-
-
-            <p>
-                <strong>Current Status:</strong>
-                {{ room.status }}
+                {{ room.hotel.name }}
             </p>
 
         </div>
 
 
-        <br>
+        <!-- =========================
+             ROOM CARD
+        ========================== -->
+
+        <div class="booking-card">
 
 
-        <form method="POST">
+            <!-- ROOM IMAGE -->
 
-            <div class="form-group">
+            <div class="booking-room-image-container">
 
-                <label for="status">
-                    Change Room Status
-                </label>
-
-
-                <select name="status"
-                        id="status"
-                        required>
-
-                    <option value="available"
-                        {% if room.status == "available" %}
-                        selected
-                        {% endif %}>
-
-                        Available
-
-                    </option>
-
-
-                    <option value="maintenance"
-                        {% if room.status == "maintenance" %}
-                        selected
-                        {% endif %}>
-
-                        Maintenance
-
-                    </option>
-
-                </select>
+                <img
+                    src="{{ url_for(
+                        'static',
+                        filename='images/rooms/room'
+                        ~ room.id
+                        ~ '.png'
+                    ) }}"
+                    alt="Room {{ room.room_number }}"
+                    class="booking-room-image"
+                >
 
             </div>
 
 
-            <button type="submit"
-                    class="primary-btn">
+            <!-- ROOM INFORMATION -->
 
-                Update Room
+            <div class="booking-room-info">
 
-            </button>
+                <h2>
+                    Room {{ room.room_number }}
+                </h2>
 
-        </form>
-        <br>
+                <p>
 
-        <a href="{{ url_for('routes.staff_rooms') }}"
-           class="secondary-btn">
+                    <strong>
+                        Hotel:
+                    </strong>
 
-            Back to Rooms
+                    {{ room.hotel.name }}
 
-        </a>
-    </div>
+                </p>
+
+                <p>
+
+                    <strong>
+                        Room Type:
+                    </strong>
+
+                    {{ room.room_type.name }}
+
+                </p>
+
+                <p>
+
+                    <strong>
+                        Capacity:
+                    </strong>
+
+                    {{ room.room_type.capacity }}
+                    guests
+
+                </p>
+
+            </div>
+
+
+            <!-- =========================
+                 UPDATE FORM
+            ========================== -->
+
+            <form
+                method="POST"
+                class="booking-form"
+            >
+
+
+                <!-- PRICE -->
+
+                <div class="form-group">
+
+                    <label for="price_per_night">
+                        Price Per Night
+                    </label>
+
+                    <input
+                        type="number"
+                        id="price_per_night"
+                        name="price_per_night"
+                        value="{{ room.price_per_night }}"
+                        min="0"
+                        step="0.01"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- STATUS -->
+
+                <div class="form-group">
+
+                    <label for="status">
+                        Room Status
+                    </label>
+
+                    <select
+                        id="status"
+                        name="status"
+                        required
+                    >
+
+                        <option
+                            value="available"
+                            {% if room.status == "available" %}
+                                selected
+                            {% endif %}
+                        >
+                            Available
+                        </option>
+
+                        <option
+                            value="maintenance"
+                            {% if room.status == "maintenance" %}
+                                selected
+                            {% endif %}
+                        >
+                            Maintenance
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- UPDATE BUTTON -->
+
+                <button
+                    type="submit"
+                    class="btn-primary booking-button"
+                >
+                    Update Room
+                </button>
+
+            </form>
+
+        </div>
+
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer class="footer">
+
+        <p class="footer-bottom">
+            © 2026 StayLuxe. All rights reserved.
+        </p>
+
+    </footer>
+
 </body>
 
 </html>

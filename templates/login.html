@@ -1,32 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>Login - Hotel Reservation</title>
+    <title>Login - StayLuxe</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/style.css') }}">
-
 </head>
 
 <body>
 
-    <!-- Navigation -->
+    <!-- =========================
+         NAVBAR
+    ========================== -->
 
     <nav class="navbar">
 
-        <a href="{{ url_for('routes.login') }}"
-           class="logo">
-            Grand Palace Hotel
-        </a>
+        <div class="logo">
+            <a href="{{ url_for('routes.home') }}">
+                StayLuxe
+            </a>
+        </div>
 
         <div class="nav-links">
+
+            <a href="{{ url_for('routes.home') }}">
+                Home
+            </a>
 
             <a href="{{ url_for('routes.register') }}">
                 Register
@@ -37,34 +39,55 @@
     </nav>
 
 
-    <!-- Login -->
+    <!-- =========================
+         FLASH MESSAGES
+    ========================== -->
 
-    <div class="auth-page">
+    {% with messages = get_flashed_messages(with_categories=true) %}
 
-        <div class="auth-container">
+        {% if messages %}
 
-            <div class="auth-header">
+            <div class="flash-container">
 
-                <h1>Welcome Back</h1>
+                {% for category, message in messages %}
 
-                <p>
-                    Login to your hotel account
-                </p>
+                    <div class="flash-message {{ category }}">
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
 
             </div>
 
+        {% endif %}
 
-            <form
-                action="{{ url_for('routes.login') }}"
-                method="POST">
+    {% endwith %}
 
 
-                <!-- Email -->
+    <!-- =========================
+         LOGIN SECTION
+    ========================== -->
+
+    <div class="auth-container">
+
+        <div class="auth-card">
+
+            <h1>Welcome Back</h1>
+
+            <p class="auth-subtitle">
+                Login to your StayLuxe account
+            </p>
+
+
+            <form method="POST">
+
+
+                <!-- EMAIL -->
 
                 <div class="form-group">
 
                     <label for="email">
-                        Email Address
+                        Email
                     </label>
 
                     <input
@@ -72,12 +95,13 @@
                         id="email"
                         name="email"
                         placeholder="Enter your email"
-                        required>
+                        required
+                    >
 
                 </div>
 
 
-                <!-- Password -->
+                <!-- PASSWORD -->
 
                 <div class="form-group">
 
@@ -90,23 +114,27 @@
                         id="password"
                         name="password"
                         placeholder="Enter your password"
-                        required>
+                        required
+                    >
 
                 </div>
 
 
+                <!-- LOGIN BUTTON -->
+
                 <button
                     type="submit"
-                    class="primary-btn">
-
+                    class="btn-primary auth-button"
+                >
                     Login
-
                 </button>
 
             </form>
 
 
-            <p class="login-text">
+            <!-- REGISTER LINK -->
+
+            <p class="auth-footer">
 
                 Don't have an account?
 
@@ -120,6 +148,18 @@
 
     </div>
 
-</body>
 
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer class="footer">
+
+        <p>
+            © 2026 StayLuxe. All rights reserved.
+        </p>
+
+    </footer>
+
+</body>
 </html>

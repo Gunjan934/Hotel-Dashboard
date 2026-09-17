@@ -2,282 +2,263 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>{{ hotel.name }}</title>
+    <title>{{ hotel.name }} - StayLuxe</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/style.css') }}">
-
 </head>
-
 
 <body>
 
+    <!-- =========================
+         NAVBAR
+    ========================== -->
 
-<!-- NAVBAR -->
+    <nav class="navbar">
 
-<nav class="navbar">
+        <div class="logo">
+            <a href="{{ url_for('routes.home') }}">
+                StayLuxe
+            </a>
+        </div>
 
-    <a href="{{ url_for('routes.home') }}"
-       class="logo">
+        <div class="nav-right">
 
-        HotelHub
+            <a href="{{ url_for('routes.home') }}">
+                Home
+            </a>
 
-    </a>
+            {% if session.get("user_id") %}
 
+                {% if session.get("role") == "customer" %}
 
-    <div class="nav-links">
+                    <a href="{{ url_for('routes.customer_dashboard') }}">
+                        Dashboard
+                    </a>
 
-        <a href="{{ url_for('routes.home') }}">
-            Home
-        </a>
+                    <a href="{{ url_for('routes.bookings') }}">
+                        My Bookings
+                    </a>
 
-        <a href="{{ url_for('routes.login') }}">
-            Login
-        </a>
+                {% elif session.get("role") == "staff" %}
 
-        <a href="{{ url_for('routes.register') }}">
-            Register
-        </a>
+                    <a href="{{ url_for('routes.staff_dashboard') }}">
+                        Dashboard
+                    </a>
 
-        <a href="{{ url_for('routes.staff_login') }}">
-            Staff Login
-        </a>
+                {% endif %}
 
-    </div>
+                <a href="{{ url_for('routes.logout') }}">
+                    Logout
+                </a>
 
-</nav>
+            {% else %}
 
+                <a href="{{ url_for('routes.login') }}">
+                    Login
+                </a>
 
+                <a href="{{ url_for('routes.register') }}">
+                    Register
+                </a>
 
-<!-- HOTEL HERO -->
-
-<div class="hotel-details-page">
-
-
-    <div class="hotel-hero-card">
-
-
-        <img
-            src="{{ url_for(
-                'static',
-                filename='images/hotels/Hotel' ~ hotel.id ~ '.png'
-            ) }}"
-            alt="{{ hotel.name }}"
-            class="hotel-details-image"
-        >
-
-
-        <div class="hotel-hero-content">
-
-            <h1>
-                {{ hotel.name }}
-            </h1>
-
-            <p class="hotel-location">
-                📍 {{ hotel.city }}
-            </p>
-
-            <p>
-                {{ hotel.address }}
-            </p>
-
-            <p>
-                {{ hotel.phone }}
-            </p>
+            {% endif %}
 
         </div>
 
-
-    </div>
-
+    </nav>
 
 
-    <!-- ROOMS -->
+    <!-- =========================
+         FLASH MESSAGES
+    ========================== -->
 
-    <div class="page-container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
 
-        <div class="section-heading">
+        {% if messages %}
 
-            <p class="section-label">
-                ACCOMMODATION
-            </p>
+            <div class="flash-container">
 
-            <h2>
-                Our Rooms
-            </h2>
+                {% for category, message in messages %}
 
-            <p>
-                Choose a comfortable room for your stay.
-            </p>
+                    <div class="flash-message {{ category }}">
+                        {{ message }}
+                    </div>
 
-        </div>
+                {% endfor %}
 
+            </div>
 
-        {% if rooms %}
+        {% endif %}
 
-
-        <div class="room-grid">
+    {% endwith %}
 
 
-            {% for room in rooms %}
+    <!-- =========================
+         HOTEL DETAILS
+    ========================== -->
+
+    <main class="hotel-details-container">
+
+        <!-- BACK LINK -->
+
+        <a href="{{ url_for('routes.home') }}"
+           class="back-link">
+            ← Back to Hotels
+        </a>
 
 
-            <div class="room-card">
+        <div class="hotel-details-card">
 
+            <!-- HOTEL IMAGE -->
 
-                <!-- ROOM IMAGE -->
+            <div class="hotel-details-image">
 
                 <img
                     src="{{ url_for(
                         'static',
-                        filename='images/rooms/room' ~ room.id ~ '.png'
+                        filename='images/hotels/Hotel' ~ hotel.id ~ '.png'
                     ) }}"
-                    alt="Room {{ room.room_number }}"
-                    class="room-image"
+                    alt="{{ hotel.name }}"
                 >
-
-
-                <div class="room-content">
-
-                    <h3>
-                        Room {{ room.room_number }}
-                    </h3>
-
-
-                    <p>
-                        <strong>
-                            Room Type:
-                        </strong>
-
-                        {{ room.room_type.name }}
-                    </p>
-
-
-                    <p>
-                        <strong>
-                            Capacity:
-                        </strong>
-
-                        {{ room.room_type.capacity }}
-                        guests
-                    </p>
-
-
-                    <p class="room-price">
-
-                        ₹{{ room.price_per_night }}
-
-                        <span>
-                            / night
-                        </span>
-
-                    </p>
-
-
-                    <p>
-
-                        <strong>
-                            Status:
-                        </strong>
-
-                        {{ room.status }}
-
-                    </p>
-
-
-
-                    {% if room.status == "available" %}
-
-                        {% if session.get("role") == "customer" %}
-
-                            <a
-                                href="{{ url_for(
-                                    'routes.rooms',
-                                    hotel_id=hotel.id
-                                ) }}"
-                                class="primary-btn"
-                            >
-
-                                Check Availability
-
-                            </a>
-
-
-                        {% elif not session.get("user_id") %}
-
-                            <a
-                                href="{{ url_for('routes.login') }}"
-                                class="primary-btn"
-                            >
-
-                                Login to Book
-
-                            </a>
-
-                        {% endif %}
-
-
-                    {% else %}
-
-                        <p class="unavailable">
-                            Room Not Available
-                        </p>
-
-                    {% endif %}
-
-                </div>
-
 
             </div>
 
 
-            {% endfor %}
+            <!-- HOTEL INFORMATION -->
 
+            <div class="hotel-details-content">
+
+                <h1>
+                    {{ hotel.name }}
+                </h1>
+
+                <p class="hotel-location">
+                    {{ hotel.city }}
+                </p>
+
+
+                {% if hotel.address %}
+
+                    <div class="hotel-info-row">
+
+                        <strong>
+                            Address:
+                        </strong>
+
+                        <span>
+                            {{ hotel.address }}
+                        </span>
+
+                    </div>
+
+                {% endif %}
+
+
+                {% if hotel.phone %}
+
+                    <div class="hotel-info-row">
+
+                        <strong>
+                            Phone:
+                        </strong>
+
+                        <span>
+                            {{ hotel.phone }}
+                        </span>
+
+                    </div>
+
+                {% endif %}
+
+
+                <div class="hotel-info-row">
+
+                    <strong>
+                        Hotel Code:
+                    </strong>
+
+                    <span>
+                        {{ hotel.hotel_code }}
+                    </span>
+
+                </div>
+
+
+                <!-- CHECK AVAILABILITY -->
+
+                {% if session.get("role") == "customer" %}
+
+                    <a
+                        href="{{ url_for(
+                            'routes.rooms',
+                            hotel_id=hotel.id
+                        ) }}"
+                        class="btn-primary hotel-book-button"
+                    >
+                        Check Room Availability
+                    </a>
+
+                {% elif not session.get("user_id") %}
+
+                    <a
+                        href="{{ url_for('routes.login') }}"
+                        class="btn-primary hotel-book-button"
+                    >
+                        Login to Book a Room
+                    </a>
+
+                {% endif %}
+
+            </div>
 
         </div>
 
 
-        {% else %}
+        <!-- =========================
+             HOTEL ROOMS INFORMATION
+        ========================== -->
 
+        <section class="hotel-room-summary">
 
-        <div class="no-data">
-
-            <h3>
-                No Rooms Found
-            </h3>
+            <h2>
+                Rooms Available at {{ hotel.name }}
+            </h2>
 
             <p>
-                This hotel currently has no rooms.
+                Choose your check-in and check-out dates
+                to see available rooms and prices.
             </p>
 
-        </div>
+            <a
+                href="{{ url_for(
+                    'routes.rooms',
+                    hotel_id=hotel.id
+                ) }}"
+                class="btn-secondary"
+            >
+                View Available Rooms
+            </a>
+
+        </section>
+
+    </main>
 
 
-        {% endif %}
+    <!-- =========================
+         FOOTER
+    ========================== -->
 
+    <footer class="footer">
 
-        <br>
+        <p class="footer-bottom">
+            © 2026 StayLuxe. All rights reserved.
+        </p>
 
-
-        <a href="{{ url_for('routes.home') }}"
-           class="secondary-btn">
-
-            Back to Hotels
-
-        </a>
-
-
-    </div>
-
-
-</div>
-
+    </footer>
 
 </body>
 

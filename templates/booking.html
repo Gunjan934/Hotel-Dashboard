@@ -2,36 +2,30 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>Book Room</title>
+    <title>Book Room - StayLuxe</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/style.css') }}">
-
 </head>
-
 
 <body>
 
-
-    <!-- NAVBAR -->
+    <!-- =========================
+         NAVBAR
+    ========================== -->
 
     <nav class="navbar">
 
-        <a href="{{ url_for('routes.home') }}"
-           class="logo">
+        <div class="logo">
+            <a href="{{ url_for('routes.home') }}">
+                StayLuxe
+            </a>
+        </div>
 
-            Hotel Reservation System
-
-        </a>
-
-
-        <div class="nav-links">
+        <div class="nav-right">
 
             <a href="{{ url_for('routes.home') }}">
                 Home
@@ -54,88 +48,139 @@
     </nav>
 
 
+    <!-- =========================
+         FLASH MESSAGES
+    ========================== -->
 
-    <!-- BOOKING PAGE -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
 
-    <div class="page-container">
+        {% if messages %}
 
-        <h1>Book Room</h1>
+            <div class="flash-container">
 
+                {% for category, message in messages %}
 
-        <!-- ROOM DETAILS -->
+                    <div class="flash-message {{ category }}">
+                        {{ message }}
+                    </div>
 
-        <div class="room-card">
-            <img
-            src="{{ url_for(
-                'static',
-                filename='images/rooms/room' ~ room.id ~ '.png'
-            ) }}"
-            alt="Room {{ room.room_number }}"
-            class="booking-room-image"
-             >
+                {% endfor %}
 
-            <h3>
-                Room {{ room.room_number }}
-            </h3>
+            </div>
 
+        {% endif %}
 
-            <p>
-                <strong>Hotel:</strong>
-                {{ room.hotel.name }}
-            </p>
+    {% endwith %}
 
 
-            <p>
-                <strong>City:</strong>
-                {{ room.hotel.city }}
-            </p>
+    <!-- =========================
+         BOOKING PAGE
+    ========================== -->
+
+    <main class="booking-container">
+
+        <a href="{{ url_for(
+            'routes.rooms',
+            hotel_id=room.hotel_id,
+            check_in=check_in,
+            check_out=check_out
+        ) }}"
+           class="back-link">
+
+            ← Back to Available Rooms
+
+        </a>
 
 
-            <p>
-                <strong>Room Type:</strong>
-                {{ room.room_type.name }}
-            </p>
+        <div class="section-heading">
 
-
-            <p>
-                <strong>Capacity:</strong>
-                {{ room.room_type.capacity }}
-                guests
-            </p>
-
-
-            <p class="room-price">
-                ₹{{ room.price_per_night }}
-                per night
-            </p>
-
+            <h1>
+                Book Your Room
+            </h1>
 
             <p>
-                <strong>Room Status:</strong>
-                {{ room.status }}
+                Complete the details below to confirm your reservation.
             </p>
 
         </div>
 
 
-        <br>
-
-
-        <!-- BOOKING FORM -->
+        <!-- =========================
+             BOOKING CARD
+        ========================== -->
 
         <div class="booking-card">
 
-            <h3>Enter Booking Details</h3>
 
-            <br>
+            <!-- ROOM IMAGE -->
+
+            <div class="booking-room-image-container">
+
+                <img
+                    src="{{ url_for(
+                        'static',
+                        filename='images/rooms/room'
+                        ~ room.id
+                        ~ '.png'
+                    ) }}"
+                    alt="Room {{ room.room_number }}"
+                    class="booking-room-image"
+                >
+
+            </div>
 
 
-            <form method="POST"
-                  action="{{ url_for(
-                      'routes.booking',
-                      room_id=room.id
-                  ) }}">
+            <!-- ROOM INFORMATION -->
 
+            <div class="booking-room-info">
+
+                <h2>
+                    {{ room.hotel.name }}
+                </h2>
+
+                <h3>
+                    Room {{ room.room_number }}
+                </h3>
+
+                <p>
+                    <strong>
+                        Room Type:
+                    </strong>
+
+                    {{ room.room_type.name }}
+                </p>
+
+                <p>
+                    <strong>
+                        Capacity:
+                    </strong>
+
+                    {{ room.room_type.capacity }}
+                    guests
+                </p>
+
+                <p>
+                    <strong>
+                        Price:
+                    </strong>
+
+                    ₹{{ room.price_per_night }}
+                    / night
+                </p>
+
+            </div>
+
+
+            <!-- =========================
+                 BOOKING FORM
+            ========================== -->
+
+            <form
+                method="POST"
+                class="booking-form"
+            >
+
+                <!-- CHECK-IN -->
 
                 <div class="form-group">
 
@@ -147,11 +192,14 @@
                         type="date"
                         id="check_in"
                         name="check_in"
+                        value="{{ check_in or '' }}"
                         required
                     >
 
                 </div>
 
+
+                <!-- CHECK-OUT -->
 
                 <div class="form-group">
 
@@ -163,11 +211,14 @@
                         type="date"
                         id="check_out"
                         name="check_out"
+                        value="{{ check_out or '' }}"
                         required
                     >
 
                 </div>
 
+
+                <!-- GUESTS -->
 
                 <div class="form-group">
 
@@ -181,40 +232,45 @@
                         name="guests"
                         min="1"
                         max="{{ room.room_type.capacity }}"
+                        value="{{ guests or 1 }}"
                         required
                     >
+
+                    <small>
+                        Maximum {{ room.room_type.capacity }}
+                        guests for this room.
+                    </small>
 
                 </div>
 
 
-                <button type="submit"
-                        class="primary-btn">
+                <!-- CONFIRM BUTTON -->
 
+                <button
+                    type="submit"
+                    class="btn-primary booking-button"
+                >
                     Confirm Booking
-
                 </button>
 
             </form>
 
         </div>
 
-
-        <br>
-
-
-        <a href="{{ url_for(
-            'routes.hotel_details',
-            hotel_id=room.hotel_id
-        ) }}"
-           class="secondary-btn">
-
-            Back to Hotel
-
-        </a>
+    </main>
 
 
-    </div>
+    <!-- =========================
+         FOOTER
+    ========================== -->
 
+    <footer class="footer">
+
+        <p class="footer-bottom">
+            © 2026 StayLuxe. All rights reserved.
+        </p>
+
+    </footer>
 
 </body>
 

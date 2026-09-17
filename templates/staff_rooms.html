@@ -2,38 +2,49 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>Manage Rooms</title>
+    <title>Manage Rooms - StayLuxe</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/style.css') }}">
-
 </head>
 
 <body>
 
+    <!-- =========================
+         NAVBAR
+    ========================== -->
+
     <nav class="navbar">
 
-        <a href="{{ url_for('routes.staff_dashboard') }}"
-           class="logo">
+        <div class="logo">
+            <a href="{{ url_for('routes.home') }}">
+                StayLuxe
+            </a>
+        </div>
 
-            Grand Palace Hotel
-
-        </a>
-
-        <div class="nav-links">
+        <div class="nav-right">
 
             <a href="{{ url_for('routes.staff_dashboard') }}">
                 Dashboard
             </a>
 
+            <a href="{{ url_for('routes.staff_hotel') }}">
+                My Hotel
+            </a>
+
+            <a href="{{ url_for('routes.staff_rooms') }}">
+                Rooms
+            </a>
+
             <a href="{{ url_for('routes.staff_bookings') }}">
                 Bookings
+            </a>
+
+            <a href="{{ url_for('routes.staff_customers') }}">
+                Customers
             </a>
 
             <a href="{{ url_for('routes.logout') }}">
@@ -44,86 +55,201 @@
 
     </nav>
 
-    <div class="container">
 
-        <h1>Manage Rooms</h1>
+    <!-- =========================
+         FLASH MESSAGES
+    ========================== -->
 
-        <p>View and manage hotel room status.</p>
+    {% with messages = get_flashed_messages(with_categories=true) %}
 
-        <br>
+        {% if messages %}
 
+            <div class="flash-container">
 
-        {% if rooms %}
+                {% for category, message in messages %}
 
-        <div class="room-grid">
+                    <div class="flash-message {{ category }}">
+                        {{ message }}
+                    </div>
 
-
-            {% for room in rooms %}
-
-            <div class="room-card">
-
-                <h3>
-                    Room {{ room.room_number }}
-                </h3>
-
-
-                <p>
-                    <strong>Room Type:</strong>
-                    {{ room.room_type.name }}
-                </p>
-
-
-                <p>
-                    <strong>Capacity:</strong>
-                    {{ room.room_type.capacity }}
-                    guests
-                </p>
-
-
-                <p>
-                    <strong>Price:</strong>
-                    ₹{{ room.price_per_night }}
-                    per night
-                </p>
-
-
-                <p>
-                    <strong>Status:</strong>
-                    {{ room.status }}
-                </p>
-
-
-                <a href="{{ url_for(
-                    'routes.manage_room',
-                    room_id=room.id
-                ) }}"
-                   class="dashboard-btn">
-
-                    Manage Room
-
-                </a>
+                {% endfor %}
 
             </div>
 
-            {% endfor %}
+        {% endif %}
 
+    {% endwith %}
+
+
+    <!-- =========================
+         ROOMS SECTION
+    ========================== -->
+
+    <main class="rooms-container">
+
+        <a href="{{ url_for('routes.staff_dashboard') }}"
+           class="back-link">
+
+            ← Back to Dashboard
+
+        </a>
+
+
+        <div class="section-heading">
+
+            <h1>
+                Manage Rooms
+            </h1>
+
+            <p>
+                {{ hotel.name }} — {{ hotel.city }}
+            </p>
 
         </div>
+
+
+        <!-- =========================
+             ROOM GRID
+        ========================== -->
+
+        {% if rooms %}
+
+            <div class="room-grid">
+
+                {% for room in rooms %}
+
+                    <div class="room-card">
+
+                        <!-- ROOM IMAGE -->
+
+                        <img
+                            src="{{ url_for(
+                                'static',
+                                filename='images/rooms/room'
+                                ~ room.id
+                                ~ '.png'
+                            ) }}"
+                            alt="Room {{ room.room_number }}"
+                            class="room-image"
+                        >
+
+
+                        <div class="room-content">
+
+                            <!-- ROOM NUMBER -->
+
+                            <h3>
+                                Room {{ room.room_number }}
+                            </h3>
+
+
+                            <!-- ROOM TYPE -->
+
+                            <p>
+
+                                <strong>
+                                    Type:
+                                </strong>
+
+                                {{ room.room_type.name }}
+
+                            </p>
+
+
+                            <!-- CAPACITY -->
+
+                            <p>
+
+                                <strong>
+                                    Capacity:
+                                </strong>
+
+                                {{ room.room_type.capacity }}
+                                guests
+
+                            </p>
+
+
+                            <!-- PRICE -->
+
+                            <p>
+
+                                <strong>
+                                    Price:
+                                </strong>
+
+                                ₹{{ room.price_per_night }}
+                                / night
+
+                            </p>
+
+
+                            <!-- STATUS -->
+
+                            <p>
+
+                                <strong>
+                                    Status:
+                                </strong>
+
+                                <span class="booking-status">
+                                    {{ room.status }}
+                                </span>
+
+                            </p>
+
+
+                            <!-- MANAGE BUTTON -->
+
+                            <a
+                                href="{{ url_for(
+                                    'routes.manage_room',
+                                    room_id=room.id
+                                ) }}"
+                                class="btn-primary"
+                            >
+                                Manage Room
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
 
 
         {% else %}
 
-        <div class="no-data">
+            <div class="no-hotels">
 
-            <h3>No Rooms Found</h3>
+                <h3>
+                    No Rooms Found
+                </h3>
 
-        </div>
+                <p>
+                    No rooms are currently assigned to this hotel.
+                </p>
+
+            </div>
 
         {% endif %}
 
+    </main>
 
-    </div>
 
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer class="footer">
+
+        <p class="footer-bottom">
+            © 2026 StayLuxe. All rights reserved.
+        </p>
+
+    </footer>
 
 </body>
 

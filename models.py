@@ -5,7 +5,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 class User(db.Model):
 
     __tablename__ = "users"
-
     ROLE_CHOICES = ["customer", "staff"]
 
     id = db.Column(db.Integer, primary_key=True)
@@ -84,7 +83,6 @@ class Booking(db.Model):
 class Bill(db.Model):
 
     __tablename__ = "bills"
-
 
     id = db.Column(db.Integer,primary_key=True)
     booking_id = db.Column(db.Integer,db.ForeignKey("bookings.id"),unique=True,nullable=False)

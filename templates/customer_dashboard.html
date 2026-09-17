@@ -2,33 +2,28 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>Customer Dashboard</title>
+    <title>Customer Dashboard - StayLuxe</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/style.css') }}">
-
 </head>
-
 
 <body>
 
-    <!-- NAVBAR -->
+    <!-- =========================
+         NAVBAR
+    ========================== -->
 
     <nav class="navbar">
 
-        <a href="{{ url_for('routes.customer_dashboard') }}"
-           class="logo">
-
-            Hotel Reservation System
-
-        </a>
-
+        <div class="logo">
+            <a href="{{ url_for('routes.home') }}">
+                StayLuxe
+            </a>
+        </div>
 
         <div class="nav-links">
 
@@ -49,91 +44,152 @@
     </nav>
 
 
-    <!-- DASHBOARD -->
+    <!-- =========================
+         FLASH MESSAGES
+    ========================== -->
 
-    <main class="page-container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+
+        {% if messages %}
+
+            <div class="flash-container">
+
+                {% for category, message in messages %}
+
+                    <div class="flash-message {{ category }}">
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% endif %}
+
+    {% endwith %}
+
+
+    <!-- =========================
+         DASHBOARD
+    ========================== -->
+
+    <main class="dashboard-container">
 
         <div class="dashboard-header">
 
             <h1>
-                Customer Dashboard
+                Welcome, {{ user.name }}
             </h1>
 
             <p>
-                Manage your hotel reservations easily.
+                Find your perfect stay with StayLuxe.
             </p>
 
         </div>
 
 
-        <div class="dashboard-grid">
+        <!-- =========================
+             QUICK ACTIONS
+        ========================== -->
 
+        <div class="dashboard-actions">
 
-            <!-- BROWSE HOTELS -->
+            <a href="{{ url_for('routes.home') }}"
+               class="dashboard-action">
 
-            <div class="dashboard-card">
-
-                <h3>
-                    Find a Room
-                </h3>
-
-                <p>
-                    Browse hotels and check room
-                    availability for your stay.
-                </p>
-
-                <a href="{{ url_for('routes.home') }}"
-                   class="dashboard-btn">
-
-                    Browse Hotels
-
-                </a>
-
-            </div>
-
-
-            <!-- MY BOOKINGS -->
-
-            <div class="dashboard-card">
-
-                <h3>
-                    My Bookings
-                </h3>
+                <h3>Browse Hotels</h3>
 
                 <p>
-                    View your current and previous
-                    hotel reservations.
+                    Explore hotels and find a room
+                    that suits your needs.
                 </p>
 
-                <a href="{{ url_for('routes.bookings') }}"
-                   class="dashboard-btn">
-
-                    View My Bookings
-
-                </a>
-
-            </div>
+            </a>
 
 
-            <!-- ACCOUNT -->
+            <a href="{{ url_for('routes.bookings') }}"
+               class="dashboard-action">
 
-            <div class="dashboard-card">
-
-                <h3>
-                    My Account
-                </h3>
+                <h3>My Bookings</h3>
 
                 <p>
-                    Your account is securely logged in
-                    to the hotel reservation system.
+                    View your reservations and
+                    booking details.
                 </p>
 
-            </div>
+            </a>
 
+        </div>
+
+
+        <!-- =========================
+             INFORMATION
+        ========================== -->
+
+        <div class="dashboard-info">
+
+            <h2>
+                Your StayLuxe Account
+            </h2>
+
+            <div class="info-grid">
+
+                <div class="info-item">
+
+                    <span class="info-label">
+                        Name
+                    </span>
+
+                    <span class="info-value">
+                        {{ user.name }}
+                    </span>
+
+                </div>
+
+
+                <div class="info-item">
+
+                    <span class="info-label">
+                        Email
+                    </span>
+
+                    <span class="info-value">
+                        {{ user.email }}
+                    </span>
+
+                </div>
+
+
+                <div class="info-item">
+
+                    <span class="info-label">
+                        Account Type
+                    </span>
+
+                    <span class="info-value">
+                        Customer
+                    </span>
+
+                </div>
+
+            </div>
 
         </div>
 
     </main>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer class="footer">
+
+        <p>
+            © 2026 StayLuxe. All rights reserved.
+        </p>
+
+    </footer>
 
 </body>
 

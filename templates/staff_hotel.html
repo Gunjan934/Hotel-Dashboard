@@ -2,55 +2,49 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>Hotel Details</title>
+    <title>My Hotel - StayLuxe</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/style.css') }}">
-
 </head>
-
 
 <body>
 
-
-    <!-- NAVBAR -->
+    <!-- =========================
+         NAVBAR
+    ========================== -->
 
     <nav class="navbar">
 
-        <a href="{{ url_for('routes.staff_dashboard') }}"
-           class="logo">
+        <div class="logo">
+            <a href="{{ url_for('routes.home') }}">
+                StayLuxe
+            </a>
+        </div>
 
-            Hotel Reservation System
-
-        </a>
-
-
-        <div class="nav-links">
+        <div class="nav-right">
 
             <a href="{{ url_for('routes.staff_dashboard') }}">
                 Dashboard
             </a>
 
             <a href="{{ url_for('routes.staff_hotel') }}">
-                Hotel Details
+                My Hotel
             </a>
 
-            <a href="{{ url_for('routes.staff_customers') }}">
-                Customers
+            <a href="{{ url_for('routes.staff_rooms') }}">
+                Rooms
             </a>
 
             <a href="{{ url_for('routes.staff_bookings') }}">
                 Bookings
             </a>
 
-            <a href="{{ url_for('routes.staff_rooms') }}">
-                Rooms
+            <a href="{{ url_for('routes.staff_customers') }}">
+                Customers
             </a>
 
             <a href="{{ url_for('routes.logout') }}">
@@ -62,68 +56,202 @@
     </nav>
 
 
+    <!-- =========================
+         FLASH MESSAGES
+    ========================== -->
 
-    <!-- HOTEL DETAILS -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
 
-    <div class="page-container">
+        {% if messages %}
 
+            <div class="flash-container">
 
-        <div class="dashboard-header">
+                {% for category, message in messages %}
 
-            <h1>
-                Hotel Details
-            </h1>
+                    <div class="flash-message {{ category }}">
+                        {{ message }}
+                    </div>
 
-            <p>
-                Details of your hotel.
-            </p>
+                {% endfor %}
 
-        </div>
+            </div>
 
+        {% endif %}
 
-
-        <div class="room-card">
-
-
-            <h3>
-                {{ hotel.name }}
-            </h3>
+    {% endwith %}
 
 
-            <p>
-                <strong>City:</strong>
-                {{ hotel.city }}
-            </p>
+    <!-- =========================
+         HOTEL DETAILS
+    ========================== -->
 
-
-            <p>
-                <strong>Address:</strong>
-                {{ hotel.address }}
-            </p>
-
-
-            <p>
-                <strong>Phone:</strong>
-                {{ hotel.phone }}
-            </p>
-
-
-        </div>
-
-
-        <br>
-
+    <main class="hotel-details-container">
 
         <a href="{{ url_for('routes.staff_dashboard') }}"
-           class="secondary-btn">
+           class="back-link">
 
-            Back to Dashboard
+            ← Back to Dashboard
 
         </a>
 
 
-    </div>
+        <div class="section-heading">
 
+            <h1>
+                My Hotel
+            </h1>
+
+            <p>
+                Information about your assigned hotel.
+            </p>
+
+        </div>
+
+
+        <!-- =========================
+             HOTEL CARD
+        ========================== -->
+
+        <div class="hotel-details-card">
+
+
+            <!-- HOTEL IMAGE -->
+
+            <div class="hotel-details-image">
+
+                <img
+                    src="{{ url_for(
+                        'static',
+                        filename='images/hotels/Hotel'
+                        ~ hotel.id
+                        ~ '.png'
+                    ) }}"
+                    alt="{{ hotel.name }}"
+                >
+
+            </div>
+
+
+            <!-- HOTEL INFORMATION -->
+
+            <div class="hotel-details-content">
+
+                <h1>
+                    {{ hotel.name }}
+                </h1>
+
+                <p class="hotel-location">
+                    {{ hotel.city }}
+                </p>
+
+
+                {% if hotel.address %}
+
+                    <div class="hotel-info-row">
+
+                        <strong>
+                            Address:
+                        </strong>
+
+                        <span>
+                            {{ hotel.address }}
+                        </span>
+
+                    </div>
+
+                {% endif %}
+
+
+                {% if hotel.phone %}
+
+                    <div class="hotel-info-row">
+
+                        <strong>
+                            Phone:
+                        </strong>
+
+                        <span>
+                            {{ hotel.phone }}
+                        </span>
+
+                    </div>
+
+                {% endif %}
+
+
+                <div class="hotel-info-row">
+
+                    <strong>
+                        Hotel Code:
+                    </strong>
+
+                    <span>
+                        {{ hotel.hotel_code }}
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             HOTEL MANAGEMENT
+        ========================== -->
+
+        <div class="dashboard-actions">
+
+            <a
+                href="{{ url_for('routes.staff_rooms') }}"
+                class="dashboard-action"
+            >
+
+                <h3>
+                    Manage Rooms
+                </h3>
+
+                <p>
+                    View and update rooms,
+                    prices and room status.
+                </p>
+
+            </a>
+
+
+            <a
+                href="{{ url_for('routes.staff_bookings') }}"
+                class="dashboard-action"
+            >
+
+                <h3>
+                    Manage Bookings
+                </h3>
+
+                <p>
+                    View reservations and
+                    manage customer check-in
+                    and check-out.
+                </p>
+
+            </a>
+
+        </div>
+
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer class="footer">
+
+        <p class="footer-bottom">
+            © 2026 StayLuxe. All rights reserved.
+        </p>
+
+    </footer>
 
 </body>
 

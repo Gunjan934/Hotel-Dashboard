@@ -2,36 +2,30 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>Booking Bill</title>
+    <title>Bill - StayLuxe</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/style.css') }}">
-
 </head>
-
 
 <body>
 
-
-    <!-- NAVBAR -->
+    <!-- =========================
+         NAVBAR
+    ========================== -->
 
     <nav class="navbar">
 
-        <a href="{{ url_for('routes.customer_dashboard') }}"
-           class="logo">
+        <div class="logo">
+            <a href="{{ url_for('routes.home') }}">
+                StayLuxe
+            </a>
+        </div>
 
-            Hotel Reservation System
-
-        </a>
-
-
-        <div class="nav-links">
+        <div class="nav-right">
 
             <a href="{{ url_for('routes.home') }}">
                 Home
@@ -54,180 +48,375 @@
     </nav>
 
 
+    <!-- =========================
+         FLASH MESSAGES
+    ========================== -->
 
-    <!-- BILL -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
 
-    <div class="page-container">
+        {% if messages %}
 
-        <div class="dashboard-header">
+            <div class="flash-container">
+
+                {% for category, message in messages %}
+
+                    <div class="flash-message {{ category }}">
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% endif %}
+
+    {% endwith %}
+
+
+    <!-- =========================
+         BILL SECTION
+    ========================== -->
+
+    <main class="bill-container">
+
+        <div class="section-heading">
 
             <h1>
                 Booking Bill
             </h1>
 
             <p>
-                Bill details for your hotel reservation.
+                StayLuxe reservation invoice
             </p>
 
         </div>
 
 
-
-        <!-- BOOKING DETAILS -->
-
-        <div class="booking-card">
-
-            <h3>
-                Booking Details
-            </h3>
+        <div class="bill-card">
 
 
-            <p>
-                <strong>Booking ID:</strong>
-                {{ booking.id }}
-            </p>
+            <!-- =========================
+                 BILL HEADER
+            ========================== -->
+
+            <div class="bill-header">
+
+                <div>
+
+                    <h2>
+                        StayLuxe
+                    </h2>
+
+                    <p>
+                        Hotel Reservation System
+                    </p>
+
+                </div>
 
 
-            <p>
-                <strong>Hotel:</strong>
-                {{ booking.room.hotel.name }}
-            </p>
+                <div class="bill-number">
+
+                    <p>
+                        <strong>
+                            Bill ID:
+                        </strong>
+
+                        #{{ bill.id }}
+
+                    </p>
+
+                    <p>
+                        <strong>
+                            Booking ID:
+                        </strong>
+
+                        #{{ booking.id }}
+
+                    </p>
+
+                </div>
+
+            </div>
 
 
-            <p>
-                <strong>City:</strong>
-                {{ booking.room.hotel.city }}
-            </p>
+            <!-- =========================
+                 CUSTOMER DETAILS
+            ========================== -->
+
+            <div class="bill-section">
+
+                <h3>
+                    Customer Details
+                </h3>
+
+                <p>
+                    <strong>
+                        Name:
+                    </strong>
+
+                    {{ booking.user.name }}
+                </p>
+
+                <p>
+                    <strong>
+                        Email:
+                    </strong>
+
+                    {{ booking.user.email }}
+                </p>
+
+            </div>
 
 
-            <p>
-                <strong>Room:</strong>
-                {{ booking.room.room_number }}
-            </p>
+            <!-- =========================
+                 HOTEL DETAILS
+            ========================== -->
+
+            <div class="bill-section">
+
+                <h3>
+                    Hotel Details
+                </h3>
+
+                <p>
+                    <strong>
+                        Hotel:
+                    </strong>
+
+                    {{ booking.room.hotel.name }}
+                </p>
+
+                <p>
+                    <strong>
+                        City:
+                    </strong>
+
+                    {{ booking.room.hotel.city }}
+                </p>
+
+                <p>
+                    <strong>
+                        Room:
+                    </strong>
+
+                    {{ booking.room.room_number }}
+                </p>
+
+                <p>
+                    <strong>
+                        Room Type:
+                    </strong>
+
+                    {{ booking.room.room_type.name }}
+                </p>
+
+            </div>
 
 
-            <p>
-                <strong>Room Type:</strong>
-                {{ booking.room.room_type.name }}
-            </p>
+            <!-- =========================
+                 STAY DETAILS
+            ========================== -->
+
+            <div class="bill-section">
+
+                <h3>
+                    Stay Details
+                </h3>
+
+                <p>
+                    <strong>
+                        Check-in:
+                    </strong>
+
+                    {{ booking.check_in }}
+                </p>
+
+                <p>
+                    <strong>
+                        Check-out:
+                    </strong>
+
+                    {{ booking.check_out }}
+                </p>
+
+                <p>
+                    <strong>
+                        Guests:
+                    </strong>
+
+                    {{ booking.guests }}
+                </p>
+
+                <p>
+                    <strong>
+                        Number of Nights:
+                    </strong>
+
+                    {{ nights }}
+                </p>
+
+            </div>
 
 
-            <p>
-                <strong>Check-in:</strong>
-                {{ booking.check_in }}
-            </p>
+            <!-- =========================
+                 BILL CALCULATION
+            ========================== -->
+
+            <div class="bill-calculation">
+
+                <div class="bill-row">
+
+                    <span>
+                        Room Price / Night
+                    </span>
+
+                    <span>
+                        ₹{{ booking.room.price_per_night }}
+                    </span>
+
+                </div>
 
 
-            <p>
-                <strong>Check-out:</strong>
-                {{ booking.check_out }}
-            </p>
+                <div class="bill-row">
+
+                    <span>
+                        Number of Nights
+                    </span>
+
+                    <span>
+                        {{ nights }}
+                    </span>
+
+                </div>
 
 
-            <p>
-                <strong>Guests:</strong>
-                {{ booking.guests }}
-            </p>
+                <div class="bill-row">
+
+                    <span>
+                        Subtotal
+                    </span>
+
+                    <span>
+                        ₹{{ bill.subtotal }}
+                    </span>
+
+                </div>
 
 
-            <p>
-                <strong>Booking Status:</strong>
-                {{ booking.status }}
-            </p>
+                <div class="bill-row">
 
-        </div>
+                    <span>
+                        Tax (10%)
+                    </span>
 
+                    <span>
+                        ₹{{ bill.tax }}
+                    </span>
 
-
-        <br>
-
-
-
-        <!-- BILL DETAILS -->
-
-        <div class="booking-card">
-
-            <h3>
-                Bill Details
-            </h3>
+                </div>
 
 
-            <p>
-                <strong>Room Price Per Night:</strong>
-                ₹{{ price }}
-            </p>
+                <div class="bill-row bill-total">
+
+                    <strong>
+                        Total Amount
+                    </strong>
+
+                    <strong>
+                        ₹{{ bill.total_amount }}
+                    </strong>
+
+                </div>
+
+            </div>
 
 
-            <p>
-                <strong>Number of Nights:</strong>
-                {{ nights }}
-            </p>
+            <!-- =========================
+                 PAYMENT STATUS
+            ========================== -->
+
+            <div class="payment-status">
+
+                <strong>
+                    Payment Status:
+                </strong>
+
+                {% if bill.payment_status == "paid" %}
+
+                    <span class="status-paid">
+                        Paid
+                    </span>
+
+                {% else %}
+
+                    <span class="status-unpaid">
+                        Unpaid
+                    </span>
+
+                {% endif %}
+
+            </div>
 
 
-            <p>
-                <strong>Room Amount:</strong>
-                ₹{{ bill.subtotal }}
-            </p>
-
-
-            <p>
-                <strong>Tax (10%):</strong>
-                ₹{{ bill.tax }}
-            </p>
-
-
-            <p>
-                <strong>Total Amount:</strong>
-                ₹{{ bill.total_amount }}
-            </p>
-
-
-            <p>
-                <strong>Payment Status:</strong>
-                {{ bill.payment_status }}
-            </p>
-
-
-            <br>
-
+            <!-- =========================
+                 PAYMENT BUTTON
+            ========================== -->
 
             {% if bill.payment_status == "unpaid" %}
 
-                <a href="{{ url_for(
-                    'routes.pay',
-                    booking_id=booking.id
-                ) }}"
-                   class="dashboard-btn">
+                <form
+                    method="POST"
+                    action="{{ url_for(
+                        'routes.pay',
+                        booking_id=booking.id
+                    ) }}"
+                >
 
-                    Pay Now
+                    <button
+                        type="submit"
+                        class="btn-primary payment-button"
+                    >
+                        Pay Now
+                    </button>
 
-                </a>
+                </form>
 
             {% else %}
 
-                <p>
-                    <strong>Payment Completed</strong>
-                </p>
+                <div class="payment-success">
+
+                    Payment completed successfully.
+
+                </div>
 
             {% endif %}
 
+
+            <!-- BACK TO BOOKINGS -->
+
+            <a
+                href="{{ url_for('routes.bookings') }}"
+                class="back-link bill-back-link"
+            >
+                ← Back to My Bookings
+            </a>
+
         </div>
 
+    </main>
 
 
-        <br>
+    <!-- =========================
+         FOOTER
+    ========================== -->
 
+    <footer class="footer">
 
-        <a href="{{ url_for('routes.bookings') }}"
-           class="secondary-btn">
+        <p class="footer-bottom">
+            © 2026 StayLuxe. All rights reserved.
+        </p>
 
-            Back to My Bookings
-
-        </a>
-
-
-    </div>
-
+    </footer>
 
 </body>
 

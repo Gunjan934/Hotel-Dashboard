@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>StayLuxe | Find Your Perfect Stay</title>
+    <title>StayLuxe - Hotel Reservation</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/style.css') }}">
@@ -12,329 +13,367 @@
 
 <body>
 
-<!-- ================= NAVBAR ================= -->
+    <!-- =========================
+         NAVBAR
+    ========================== -->
 
-<nav class="navbar">
+    <nav class="navbar">
 
-    <div class="nav-left">
-        <a href="{{ url_for('routes.home') }}" class="logo">
-            StayLuxe
-        </a>
-    </div>
+        <div class="logo">
+            <a href="{{ url_for('routes.home') }}">
+                StayLuxe
+            </a>
+        </div>
 
-    <div class="nav-right">
+        <div class="nav-right">
 
-        <a href="{{ url_for('routes.home') }}">
-            Home
-        </a>
+            <a href="{{ url_for('routes.home') }}">
+                Home
+            </a>
 
-        <a href="{{ url_for('routes.login') }}">
-            Login
-        </a>
+            {% if session.get("user_id") %}
 
-        <a href="{{ url_for('routes.register') }}">
-            Register
-        </a>
+                {% if session.get("role") == "customer" %}
 
-        <a href="{{ url_for('routes.staff_login') }}">
-            Staff Login
-        </a>
+                    <a href="{{ url_for('routes.customer_dashboard') }}">
+                        Dashboard
+                    </a>
 
-    </div>
+                    <a href="{{ url_for('routes.bookings') }}">
+                        My Bookings
+                    </a>
 
-</nav>
+                {% elif session.get("role") == "staff" %}
+
+                    <a href="{{ url_for('routes.staff_dashboard') }}">
+                        Dashboard
+                    </a>
+
+                {% endif %}
+
+                <a href="{{ url_for('routes.logout') }}">
+                    Logout
+                </a>
+
+            {% else %}
+
+                <a href="{{ url_for('routes.login') }}">
+                    Login
+                </a>
+
+                <a href="{{ url_for('routes.register') }}">
+                    Register
+                </a>
+
+            {% endif %}
+
+        </div>
+
+    </nav>
 
 
-<!-- ================= HERO ================= -->
+    <!-- =========================
+         HERO SECTION
+    ========================== -->
 
-<section class="hero-section">
+    <section class="hero">
 
-    <div class="hero-overlay">
+        <div class="hero-overlay">
 
-        <div class="hero-content">
+            <div class="hero-content">
 
-            <p class="hero-small-text">
-                WELCOME TO STAYLUXE
-            </p>
+                <h1>
+                    Find Your Perfect Stay
+                </h1>
 
-            <h1>
-                Find Your Perfect Stay
-            </h1>
-
-            <p>
-                Discover comfortable hotels, beautiful locations,
-                and easy booking for your next stay.
-            </p>
+                <p>
+                    Comfortable rooms, trusted hotels,
+                    and easy reservations.
+                </p>
 
 
-            <form method="GET"
-                  action="{{ url_for('routes.home') }}"
-                  class="hero-search">
+                <!-- LOCATION SEARCH -->
 
-                <div class="search-box">
+                <form
+                    method="GET"
+                    action="{{ url_for('routes.home') }}"
+                    class="location-search"
+                >
 
                     <input
                         type="text"
                         name="location"
-                        placeholder="Where are you going?"
                         value="{{ location or '' }}"
+                        placeholder="Search by city or location"
                     >
 
-                    <button type="submit" class="primary-btn">
-                        Search Hotels
+                    <button
+                        type="submit"
+                        class="btn-primary"
+                    >
+                        Search
                     </button>
 
-                </div>
-
-            </form>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- ================= FEATURES ================= -->
-
-<section class="features-section">
-
-    <div class="feature">
-
-        <div class="feature-icon">
-            🛏
-        </div>
-
-        <h3>
-            Comfortable Stays
-        </h3>
-
-        <p>
-            Clean and comfortable rooms for a relaxing stay.
-        </p>
-
-    </div>
-
-
-    <div class="feature">
-
-        <div class="feature-icon">
-            📍
-        </div>
-
-        <h3>
-            Great Locations
-        </h3>
-
-        <p>
-            Stay close to popular places and city attractions.
-        </p>
-
-    </div>
-
-
-    <div class="feature">
-
-        <div class="feature-icon">
-            ⭐
-        </div>
-
-        <h3>
-            Quality Rooms
-        </h3>
-
-        <p>
-            Choose from Standard, Deluxe and Suite rooms.
-        </p>
-
-    </div>
-
-
-    <div class="feature">
-
-        <div class="feature-icon">
-            🔒
-        </div>
-
-        <h3>
-            Secure Booking
-        </h3>
-
-        <p>
-            Simple and secure booking experience.
-        </p>
-
-    </div>
-
-</section>
-
-
-<!-- ================= HOTELS ================= -->
-
-<main class="page-container">
-
-    <div class="section-heading">
-
-        <p class="section-label">
-            OUR HOTELS
-        </p>
-
-        <h2>
-            Featured Hotels
-        </h2>
-
-        <p>
-            Explore our carefully selected hotels and choose
-            the perfect place for your stay.
-        </p>
-
-    </div>
-
-
-    <div class="hotel-grid">
-
-        {% for hotel in hotels %}
-
-        <div class="hotel-card">
-
-            <!-- HOTEL IMAGE -->
-
-            <div class="hotel-image-container">
-
-                <img
-                    src="{{ url_for(
-                        'static',
-                        filename='images/hotels/Hotel' ~ hotel.id ~ '.png'
-                    ) }}"
-                    alt="{{ hotel.name }}"
-                    class="hotel-image"
-                >
-
-            </div>
-
-
-            <!-- HOTEL DETAILS -->
-
-            <div class="hotel-content">
-
-                <h3>
-                    {{ hotel.name }}
-                </h3>
-
-                <p class="hotel-location">
-                    📍 {{ hotel.city }}
-                </p>
-
-                <p>
-                    {{ hotel.address }}
-                </p>
-
-                {% if hotel.phone %}
-
-                <p class="hotel-phone">
-                    📞 {{ hotel.phone }}
-                </p>
-
-                {% endif %}
-
-
-                <a
-                    href="{{ url_for(
-                        'routes.hotel_details',
-                        hotel_id=hotel.id
-                    ) }}"
-                    class="primary-btn"
-                >
-                    View Hotel
-                </a>
+                </form>
 
             </div>
 
         </div>
 
-        {% else %}
+    </section>
 
-        <div class="no-hotels">
+
+    <!-- =========================
+         FLASH MESSAGES
+    ========================== -->
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+
+        {% if messages %}
+
+            <div class="flash-container">
+
+                {% for category, message in messages %}
+
+                    <div class="flash-message {{ category }}">
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% endif %}
+
+    {% endwith %}
+
+
+    <!-- =========================
+         FEATURES
+    ========================== -->
+
+    <section class="features">
+
+        <div class="feature-item">
 
             <h3>
-                No hotels found
+                Multiple Hotels
             </h3>
 
             <p>
-                Try searching for another location.
+                Choose from hotels across
+                different cities.
             </p>
 
         </div>
 
-        {% endfor %}
 
-    </div>
+        <div class="feature-item">
 
-</main>
+            <h3>
+                Easy Booking
+            </h3>
 
+            <p>
+                Check availability and
+                reserve your room easily.
+            </p>
 
-<!-- ================= FOOTER ================= -->
-
-<footer class="hotel-footer">
-
-    <div>
-
-        <h2>
-            StayLuxe
-        </h2>
-
-        <p>
-            Comfortable stays. Beautiful locations.
-            Simple booking.
-        </p>
-
-    </div>
+        </div>
 
 
-    <div>
+        <div class="feature-item">
 
-        <h4>
-            Quick Links
-        </h4>
+            <h3>
+                Secure Account
+            </h3>
 
-        <a href="{{ url_for('routes.home') }}">
-            Home
-        </a>
+            <p>
+                Manage your bookings from
+                one account.
+            </p>
 
-        <a href="{{ url_for('routes.login') }}">
-            Login
-        </a>
+        </div>
 
-        <a href="{{ url_for('routes.register') }}">
-            Register
-        </a>
-
-    </div>
+    </section>
 
 
-    <div>
+    <!-- =========================
+         HOTELS SECTION
+    ========================== -->
 
-        <h4>
-            For Staff
-        </h4>
+    <section class="hotels-section">
 
-        <a href="{{ url_for('routes.staff_login') }}">
-            Staff Login
-        </a>
+        <div class="section-heading">
 
-    </div>
+            {% if location %}
+
+                <h2>
+                    Hotels in "{{ location }}"
+                </h2>
+
+                <p>
+                    Available hotels matching your search
+                </p>
+
+            {% else %}
+
+                <h2>
+                    Explore Our Hotels
+                </h2>
+
+                <p>
+                    Choose a hotel for your next stay
+                </p>
+
+            {% endif %}
+
+        </div>
 
 
-    <div class="footer-bottom">
+        {% if hotels %}
 
-        <p>
+            <div class="hotel-grid">
+
+                {% for hotel in hotels %}
+
+                    <div class="hotel-card">
+
+                        <!-- HOTEL IMAGE -->
+
+                        <img
+                            src="{{ url_for(
+                                'static',
+                                filename='images/hotels/Hotel' ~ hotel.id ~ '.png'
+                            ) }}"
+                            alt="{{ hotel.name }}"
+                        >
+
+
+                        <div class="hotel-card-content">
+
+                            <h3>
+                                {{ hotel.name }}
+                            </h3>
+
+                            <p class="hotel-location">
+                                {{ hotel.city }}
+                            </p>
+
+                            {% if hotel.address %}
+
+                                <p class="hotel-address">
+                                    {{ hotel.address }}
+                                </p>
+
+                            {% endif %}
+
+
+                            <a
+                                href="{{ url_for(
+                                    'routes.hotel_details',
+                                    hotel_id=hotel.id
+                                ) }}"
+                                class="btn-primary"
+                            >
+                                View Hotel
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="no-hotels">
+
+                <h3>
+                    No hotels found
+                </h3>
+
+                <p>
+                    Try searching for another city.
+                </p>
+
+                <a
+                    href="{{ url_for('routes.home') }}"
+                    class="btn-primary"
+                >
+                    View All Hotels
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </section>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer class="footer">
+
+        <div class="footer-content">
+
+            <div>
+
+                <h3>
+                    StayLuxe
+                </h3>
+
+                <p>
+                    Making hotel reservations
+                    simple and comfortable.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <h4>
+                    Quick Links
+                </h4>
+
+                <a href="{{ url_for('routes.home') }}">
+                    Home
+                </a>
+
+                {% if session.get("user_id") %}
+
+                    <a href="{{ url_for('routes.logout') }}">
+                        Logout
+                    </a>
+
+                {% else %}
+
+                    <a href="{{ url_for('routes.login') }}">
+                        Login
+                    </a>
+
+                    <a href="{{ url_for('routes.register') }}">
+                        Register
+                    </a>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+        <p class="footer-bottom">
             © 2026 StayLuxe. All rights reserved.
         </p>
 
-    </div>
-
-</footer>
-
+    </footer>
 
 </body>
+
 </html>

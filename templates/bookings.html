@@ -2,36 +2,30 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>My Bookings</title>
+    <title>My Bookings - StayLuxe</title>
 
     <link rel="stylesheet"
           href="{{ url_for('static', filename='css/style.css') }}">
-
 </head>
-
 
 <body>
 
-
-    <!-- NAVBAR -->
+    <!-- =========================
+         NAVBAR
+    ========================== -->
 
     <nav class="navbar">
 
-        <a href="{{ url_for('routes.customer_dashboard') }}"
-           class="logo">
+        <div class="logo">
+            <a href="{{ url_for('routes.home') }}">
+                StayLuxe
+            </a>
+        </div>
 
-            Hotel Reservation System
-
-        </a>
-
-
-        <div class="nav-links">
+        <div class="nav-right">
 
             <a href="{{ url_for('routes.home') }}">
                 Home
@@ -39,10 +33,6 @@
 
             <a href="{{ url_for('routes.customer_dashboard') }}">
                 Dashboard
-            </a>
-
-            <a href="{{ url_for('routes.bookings') }}">
-                My Bookings
             </a>
 
             <a href="{{ url_for('routes.logout') }}">
@@ -54,19 +44,45 @@
     </nav>
 
 
+    <!-- =========================
+         FLASH MESSAGES
+    ========================== -->
 
-    <!-- BOOKINGS -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
 
-    <div class="page-container">
+        {% if messages %}
 
-        <div class="dashboard-header">
+            <div class="flash-container">
+
+                {% for category, message in messages %}
+
+                    <div class="flash-message {{ category }}">
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% endif %}
+
+    {% endwith %}
+
+
+    <!-- =========================
+         BOOKINGS SECTION
+    ========================== -->
+
+    <main class="bookings-container">
+
+        <div class="section-heading">
 
             <h1>
                 My Bookings
             </h1>
 
             <p>
-                View your hotel reservations.
+                View and manage your StayLuxe reservations.
             </p>
 
         </div>
@@ -74,124 +90,158 @@
 
         {% if bookings %}
 
+            <div class="bookings-list">
 
-        <div class="booking-list">
+                {% for booking in bookings %}
 
-
-            {% for booking in bookings %}
-
-
-            <div class="booking-card">
+                    <div class="booking-list-card">
 
 
-                <div class="booking-card-header">
+                        <!-- =========================
+                             ROOM IMAGE
+                        ========================== -->
 
-                    <h3>
-                        Booking #{{ booking.id }}
-                    </h3>
+                        <div class="booking-list-image">
 
-                    <span class="status">
-                        {{ booking.status }}
-                    </span>
+                            <img
+                                src="{{ url_for(
+                                    'static',
+                                    filename='images/rooms/room'
+                                    ~ booking.room.id
+                                    ~ '.png'
+                                ) }}"
+                                alt="Room {{ booking.room.room_number }}"
+                            >
 
-                </div>
-
-
-                <p>
-                    <strong>Hotel:</strong>
-                    {{ booking.room.hotel.name }}
-                </p>
-
-
-                <p>
-                    <strong>City:</strong>
-                    {{ booking.room.hotel.city }}
-                </p>
+                        </div>
 
 
-                <p>
-                    <strong>Room:</strong>
-                    {{ booking.room.room_number }}
-                </p>
+                        <!-- =========================
+                             BOOKING DETAILS
+                        ========================== -->
+
+                        <div class="booking-list-content">
+
+                            <h2>
+                                {{ booking.room.hotel.name }}
+                            </h2>
+
+                            <h3>
+                                Room {{ booking.room.room_number }}
+                            </h3>
 
 
-                <p>
-                    <strong>Room Type:</strong>
-                    {{ booking.room.room_type.name }}
-                </p>
+                            <p>
+                                <strong>
+                                    Room Type:
+                                </strong>
+
+                                {{ booking.room.room_type.name }}
+                            </p>
 
 
-                <p>
-                    <strong>Check-in:</strong>
-                    {{ booking.check_in }}
-                </p>
+                            <p>
+                                <strong>
+                                    Check-in:
+                                </strong>
+
+                                {{ booking.check_in }}
+                            </p>
 
 
-                <p>
-                    <strong>Check-out:</strong>
-                    {{ booking.check_out }}
-                </p>
+                            <p>
+                                <strong>
+                                    Check-out:
+                                </strong>
+
+                                {{ booking.check_out }}
+                            </p>
 
 
-                <p>
-                    <strong>Guests:</strong>
-                    {{ booking.guests }}
-                </p>
+                            <p>
+                                <strong>
+                                    Guests:
+                                </strong>
+
+                                {{ booking.guests }}
+                            </p>
 
 
-                <br>
+                            <p>
+                                <strong>
+                                    Booking Status:
+                                </strong>
+
+                                <span class="booking-status">
+                                    {{ booking.status }}
+                                </span>
+                            </p>
 
 
-                <a href="{{ url_for(
-                    'routes.bill',
-                    booking_id=booking.id
-                ) }}"
-                   class="dashboard-btn">
+                            <!-- =========================
+                                 BILL
+                            ========================== -->
 
-                    View Bill
+                            <a
+                                href="{{ url_for(
+                                    'routes.bill',
+                                    booking_id=booking.id
+                                ) }}"
+                                class="btn-primary"
+                            >
+                                View Bill
+                            </a>
 
-                </a>
+                        </div>
 
+                    </div>
+
+                {% endfor %}
 
             </div>
 
 
-            {% endfor %}
-
-
-        </div>
-
-
         {% else %}
 
+            <!-- =========================
+                 NO BOOKINGS
+            ========================== -->
 
-        <div class="no-data">
+            <div class="no-hotels">
 
-            <h3>
-                No Bookings Yet
-            </h3>
+                <h3>
+                    No Bookings Yet
+                </h3>
 
-            <p>
-                You have not made any hotel reservations yet.
-            </p>
+                <p>
+                    You haven't made any hotel reservations yet.
+                </p>
 
-            <br>
+                <a
+                    href="{{ url_for('routes.home') }}"
+                    class="btn-primary"
+                >
+                    Browse Hotels
+                </a>
 
-            <a href="{{ url_for('routes.home') }}"
-               class="secondary-btn">
-
-                Browse Hotels
-
-            </a>
-
-        </div>
-
+            </div>
 
         {% endif %}
 
+    </main>
 
-    </div>
 
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer class="footer">
+
+        <p class="footer-bottom">
+            © 2026 StayLuxe. All rights reserved.
+        </p>
+
+    </footer>
 
 </body>
 

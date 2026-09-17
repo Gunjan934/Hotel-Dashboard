@@ -80,14 +80,6 @@ def seed_data():
 
         Room(
             hotel_id=hotel1.id,
-            room_type_id=deluxe.id,
-            room_number="202",
-            price_per_night=3200,
-            status="available"
-        ),
-
-        Room(
-            hotel_id=hotel1.id,
             room_type_id=suite.id,
             room_number="301",
             price_per_night=6000,
@@ -137,14 +129,6 @@ def seed_data():
             room_type_id=deluxe.id,
             room_number="301",
             price_per_night=3500,
-            status="available"
-        ),
-
-        Room(
-            hotel_id=hotel2.id,
-            room_type_id=deluxe.id,
-            room_number="302",
-            price_per_night=3700,
             status="available"
         ),
 
@@ -204,14 +188,6 @@ def seed_data():
 
         Room(
             hotel_id=hotel3.id,
-            room_type_id=deluxe.id,
-            room_number="402",
-            price_per_night=3000,
-            status="available"
-        ),
-
-        Room(
-            hotel_id=hotel3.id,
             room_type_id=suite.id,
             room_number="501",
             price_per_night=5500,
@@ -261,14 +237,6 @@ def seed_data():
             room_type_id=deluxe.id,
             room_number="501",
             price_per_night=2600,
-            status="available"
-        ),
-
-        Room(
-            hotel_id=hotel4.id,
-            room_type_id=deluxe.id,
-            room_number="502",
-            price_per_night=2800,
             status="available"
         ),
 
@@ -328,14 +296,6 @@ def seed_data():
 
         Room(
             hotel_id=hotel5.id,
-            room_type_id=deluxe.id,
-            room_number="602",
-            price_per_night=4500,
-            status="available"
-        ),
-
-        Room(
-            hotel_id=hotel5.id,
             room_type_id=suite.id,
             room_number="701",
             price_per_night=8000,
@@ -390,14 +350,6 @@ def seed_data():
 
         Room(
             hotel_id=hotel6.id,
-            room_type_id=deluxe.id,
-            room_number="702",
-            price_per_night=3500,
-            status="available"
-        ),
-
-        Room(
-            hotel_id=hotel6.id,
             room_type_id=suite.id,
             room_number="801",
             price_per_night=5500,
@@ -414,7 +366,7 @@ def seed_data():
 
     db.session.commit()
 
-    print("6 hotels and 30 rooms created successfully!")
+    print("6 hotels and 24 rooms created successfully!")
 
 
 if __name__ == "__main__":
